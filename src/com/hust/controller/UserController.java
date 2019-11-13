@@ -35,7 +35,12 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String author = request.getParameter("authorityName");
+		String faName = request.getParameter("familyName");
+		String fiName = request.getParameter("firstName");
+		System.out.println(author);
+		System.out.println(faName);
+		System.out.println(fiName);
 	}
 
 }

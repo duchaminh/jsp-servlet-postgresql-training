@@ -3,6 +3,7 @@ package com.hust.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,24 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return users;
+	}
+
+	@Override
+	public boolean save(User user) {
+		boolean flag = false;
+		try {
+			String sql = "INSERT INTO mst_user(userId, password, familyName, firstName, genderId, authorityId,age, admin, create_user_id, update_user_id, create_date, update_date)"
+			  + "VALUES('"+user.getUserId()+"', '"+user.getPassword()+"', '"+user.getFamilyName()+"', '"+user.getFirstName()+"', "
+			  + "'"+user.getGenderId()+"', '"+user.getAuthority()+"', '"+user.getAge()+"', '"+user.getAdmin()+"', "
+			  + "'"+user.getCreateUserId()+"', '"+user.getUpdateUserID()+"', '"+user.getCreateDate()+"', '"+user.getUpdateDate()+"')";
+			connection = DBConnectionUtil.openConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+			flag = true;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return flag;
 	}
 
 }
