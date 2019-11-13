@@ -18,12 +18,12 @@ import com.hust.dto.UserDTO;
 /**
  * Servlet implementation class usercontroller
  */
-@WebServlet("/usercontroller")
-public class UserController extends HttpServlet {
+@WebServlet("/logincontroller")
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     UserDAO userDAO = null;
-    public UserController() {
+    public LoginController() {
         userDAO = new UserDAOImpl();
     }
 

@@ -22,10 +22,11 @@
 			<tr class = "thead-dark">
 				<th>No</th>
 				<th>userid</th>
-				<th>name</th>
-				<th>sex</th>
+				<th>Name</th>
+				<th>Sex</th>
 				<th>Age</th>
 				<th>Authority Name</th>
+				<th><a href ="#">Add</a></th>
 			</tr>
 			<c:set var="i" value="${1}" />
 			<c:forEach items="${users}" var="user">
@@ -36,6 +37,7 @@
 					<td>${user.genderName}</td>
 					<td>${user.age}</td>
 					<td>${user.authorityName}</td>
+					<td>Edit|Delete</td>
 				</tr>
 			<c:set var="i" value="${i+1}" />
 			</c:forEach>

@@ -29,7 +29,7 @@
 		</c:if> 
 		</h1>
 		<div id="login_form">
-			<form action="usercontroller" method="POST">
+			<form action="logincontroller" method="POST">
 				<table style="margin:auto; text-align:center;">
 					<tr style="width:300px;">
 						<td style="text-align:right; width:100px;">ユーザID：</td>
