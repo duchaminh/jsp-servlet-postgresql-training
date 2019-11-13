@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>ログイン</title>
+	<style>
+		#error_message {
+			font-weight: bold;
+			font-size: 27px;
+			color: red;
+		}
+
+		#login_form {
+			width: 300px;
+			padding:20px;
+			margin-top:10px;
+			margin-right: auto;
+			margin-bottom: 10px;
+			margin-left: auto;
+		}
+	</style>
+</head>
+<body>
+	<div style="margin:auto; text-align:center;">
+		<h1>ログイン</h1>
+		<span id="error_message">※ ログインに失敗しました。</span>
+		<div id="login_form">
+			<form action="LoginServlet" method="GET">
+				<table style="margin:auto; text-align:center;">
+					<tr style="width:300px;">
+						<td style="text-align:right; width:100px;">ユーザID：</td>
+						<td><input type="text" name="userID" maxlength="8"></td>
+					</tr>
+					<tr style="width:300px;">
+						<td style="text-align:right; width:100px;">パスワード：</td>
+						<td><input type="password" name="password" maxlength="8"></td>
+					</tr>
+				</table>
+				<input type="submit" value="ログイン">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
