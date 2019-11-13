@@ -46,6 +46,19 @@
 			</c:forEach>
 		  </select>
 		</div>
+		<div class="form-group">
+		  <label for="gender">Gender:</label>
+		  <select class="form-control" name = "genderName">
+		    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
+			<sql:query var="rs" dataSource="${db}">SELECT gender_name,gender_id FROM "mst_gender"</sql:query>
+			<c:forEach items="${rs.rows}" var = "row" >
+				<option value = '<c:out value="${row.gender_id}"/>'><c:out value="${row.gender_name}"></c:out></option>
+			</c:forEach>
+		  </select>
+		</div>
+		<div class="checkbox">
+		  <label><input type="checkbox" value="" name ="admin">Admin</label>
+		</div>
 		<button class = "btn btn-primary" type ="submit">Save</button>
     </form>
    <!-- modal -->
