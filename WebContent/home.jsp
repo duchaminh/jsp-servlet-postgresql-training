@@ -26,7 +26,7 @@
 				<th>Sex</th>
 				<th>Age</th>
 				<th>Authority Name</th>
-				<th><a href ="#">Add</a></th>
+				<th><button class ="btn btn-primary" onclick="window.location.href= 'views/add-user.jsp'"> ADD </button></th>
 			</tr>
 			<c:set var="i" value="${1}" />
 			<c:forEach items="${users}" var="user">

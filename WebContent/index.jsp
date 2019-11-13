@@ -21,6 +21,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<%
+		if(session.getAttribute("name") != null){
+			response.sendRedirect(request.getContextPath() +"/logincontroller");
+		}
+	%>
 	<div style="margin:auto; text-align:center;">
 		<h1>ログイン</h1>
 		<h1 style = "text-align: center; color: red"> 

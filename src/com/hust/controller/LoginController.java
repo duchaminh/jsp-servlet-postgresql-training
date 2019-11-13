@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.hust.dao.UserDAO;
 import com.hust.dao.UserDAOImpl;
@@ -31,8 +32,12 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getSession().getAttribute("name") != null) {
+			listUser(request, response);
+		}else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("not-authenticated.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
@@ -46,17 +51,20 @@ public class LoginController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("name", username);
 			
-			List<UserDTO> users = userDAO.get();
-			//System.out.print(users.get(0).getUserId());
-			request.setAttribute("users", users);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-			dispatcher.forward(request, response);
+			listUser(request, response);
 		}else {
 			request.setAttribute("msg", "ログインに失敗しました。");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
+	}
+	
+	public void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<UserDTO> users = userDAO.get();
+		request.setAttribute("users", users);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
