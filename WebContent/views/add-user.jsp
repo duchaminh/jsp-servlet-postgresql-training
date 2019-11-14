@@ -15,10 +15,15 @@
 </head>
 <body>
 <h1>Add User</h1>
+	<h1 style = "text-align: center; color: red"> 
+		<c:if test="${not empty isoverlap}">
+   			<c:out value="${isoverlap}"/>
+		</c:if> 
+	</h1>
 	<form id = "adduser" action="${pageContext.request.contextPath}/UserController" method = "POST">
 		<div class = "form-group">
 			<label for="userid">User ID:</label>
-			<input type = "text" class = "form-control" name = "userId" placeholder = "Enter userid"/>
+			<input type = "text" class = "form-control" name = "userId" id ="userId" placeholder = "Enter userid"/>
 		</div>
 		<div class = "form-group">
 			<label for="password">Password:</label>
@@ -38,17 +43,17 @@
 		</div>
 		<div class="form-group">
 		  <label for="author">Authority:</label>
-		  <select class="form-control" name = "authorityName">
+		  <select class="form-control" name = "authorityId">
 		    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
-			<sql:query var="rs" dataSource="${db}">SELECT authority_name FROM "mst_role"</sql:query>
+			<sql:query var="rs" dataSource="${db}">SELECT authority_id,authority_name FROM "mst_role"</sql:query>
 			<c:forEach items="${rs.rows}" var = "row" >
-				<option value = '<c:out value="${row.authority_name}"/>'><c:out value="${row.authority_name}"></c:out></option>
+				<option value = '<c:out value="${row.authority_id}"/>'><c:out value="${row.authority_name}"></c:out></option>
 			</c:forEach>
 		  </select>
 		</div>
 		<div class="form-group">
 		  <label for="gender">Gender:</label>
-		  <select class="form-control" name = "genderName">
+		  <select class="form-control" name = "genderId">
 		    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
 			<sql:query var="rs" dataSource="${db}">SELECT gender_name,gender_id FROM "mst_gender"</sql:query>
 			<c:forEach items="${rs.rows}" var = "row" >

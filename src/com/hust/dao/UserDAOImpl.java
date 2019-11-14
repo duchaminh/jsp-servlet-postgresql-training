@@ -72,9 +72,9 @@ public class UserDAOImpl implements UserDAO {
 	public boolean save(User user) {
 		boolean flag = false;
 		try {
-			String sql = "INSERT INTO mst_user(userId, password, familyName, firstName, genderId, authorityId,age, admin, create_user_id, update_user_id, create_date, update_date)"
+			String sql = "INSERT INTO mst_user(user_id, password, family_name, first_name, gender_id, authority_id,age, admin, create_user_id, update_user_id, create_date, update_date)"
 			  + "VALUES('"+user.getUserId()+"', '"+user.getPassword()+"', '"+user.getFamilyName()+"', '"+user.getFirstName()+"', "
-			  + "'"+user.getGenderId()+"', '"+user.getAuthority()+"', '"+user.getAge()+"', '"+user.getAdmin()+"', "
+			  + "'"+user.getGenderId()+"', '"+user.getAuthorityId()+"', '"+user.getAge()+"', '"+user.getAdmin()+"', "
 			  + "'"+user.getCreateUserId()+"', '"+user.getUpdateUserID()+"', '"+user.getCreateDate()+"', '"+user.getUpdateDate()+"')";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
@@ -84,6 +84,28 @@ public class UserDAOImpl implements UserDAO {
 			ex.printStackTrace();
 		}
 		return flag;
+	}
+
+	@Override
+	public boolean isOverLapUserId(String userId) {
+		List<String> userIds = null;
+		
+		try {
+			userIds = new ArrayList<String>();
+			String sql = "SELECT user_id FROM mst_user";
+			connection = DBConnectionUtil.openConnection();
+			statement = (Statement) connection.createStatement();
+			resultSet = statement.executeQuery(sql);
+			while(resultSet.next()) {		
+				userIds.add(resultSet.getString("user_id"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		if(userIds.indexOf(userId) > -1)
+			return true;
+		return false;
+		
 	}
 
 }

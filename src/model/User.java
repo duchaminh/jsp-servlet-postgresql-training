@@ -13,7 +13,7 @@ public class User {
 	
 	private int age;
 	
-	private int authority;
+	private int authorityId;
 	
 	private int admin;
 	
@@ -73,12 +73,12 @@ public class User {
 		this.age = age;
 	}
 
-	public int getAuthority() {
-		return authority;
+	public int getAuthorityId() {
+		return authorityId;
 	}
 
-	public void setAuthority(int authority) {
-		this.authority = authority;
+	public void setAuthorityId(int authority) {
+		this.authorityId = authority;
 	}
 
 	public int getAdmin() {
@@ -124,7 +124,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + userId + ", password=" + password + ", familyName=" + familyName + ", firstName="
-				+ firstName + ", genderId=" + genderId + ", age=" + age + ", authority=" + authority + ", admin="
+				+ firstName + ", genderId=" + genderId + ", age=" + age + ", authorityId=" + authorityId + ", admin="
 				+ admin + ", createUserId=" + createUserId + ", updateUserID=" + updateUserID + ", createDate="
 				+ createDate + ", updateDate=" + updateDate + "]";
 	}
