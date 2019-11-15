@@ -20,26 +20,35 @@
    			<c:out value="${isoverlap}"/>
 		</c:if> 
 	</h1>
-	<form id = "adduser" action="${pageContext.request.contextPath}/UserController" method = "POST">
+	<h1><c:out value="${action}"/></h1>
+	<form id = "adduser" action="${pageContext.request.contextPath}/UserController?action=${action}" method = "POST">
+		
 		<div class = "form-group">
 			<label for="userid">User ID:</label>
-			<input type = "text" class = "form-control" name = "userId" id ="userId" placeholder = "Enter userid"/>
+			<c:if test="${action eq 'ADD' }">
+				<input type = "text" class = "form-control" name = "userId" id ="userId" placeholder = "Enter userid" value = "${user.userId }"/>
+			</c:if>
+			<c:if test="${action eq 'EDIT' }">
+				<label for="userid"><c:out value="${user.userId}"/></label>
+				<input type = "hidden" name = "userId" value = "${user.userId}"/>
+			</c:if>
 		</div>
+		
 		<div class = "form-group">
 			<label for="password">Password:</label>
-			<input type = "password" class = "form-control" name = "password" placeholder = "Enter password"/>
+			<input type = "password" class = "form-control" name = "password" placeholder = "Enter password" value = "${user.password }"/>
 		</div>
 		<div class = "form-group">
 			<label for="family name">Family Name:</label>
-			<input type = "text" class = "form-control" name = "familyName" placeholder = "Enter family name"/>
+			<input type = "text" class = "form-control" name = "familyName" placeholder = "Enter family name" value = "${user.familyName}"/>
 		</div>
 		<div class = "form-group">
 			<label for="first name">First Name:</label>
-			<input type = "password" class = "form-control" name = "firstName" placeholder = "Enter first name"/>
+			<input type = "text" class = "form-control" name = "firstName" placeholder = "Enter first name" value = "${user.firstName}"/>
 		</div>
 		<div class = "form-group">
 			<label for="age">Age:</label>
-			<input type = "text" class = "form-control" name = "age" placeholder = "Enter age"/>
+			<input type = "text" class = "form-control" id ="age" name = "age" placeholder = "Enter age" value = "${user.age}"/>
 		</div>
 		<div class="form-group">
 		  <label for="author">Authority:</label>
@@ -62,8 +71,11 @@
 		  </select>
 		</div>
 		<div class="checkbox">
-		  <label><input type="checkbox" value="" name ="admin">Admin</label>
+		  <label><input type="checkbox" value = "${user.admin}" name ="admin">Admin</label>
 		</div>
+		<c:if test="${not empty action}">
+			<%request.setAttribute("action", "EDIT"); %>
+		</c:if>
 		<button class = "btn btn-primary" type ="submit">Save</button>
     </form>
    <!-- modal -->

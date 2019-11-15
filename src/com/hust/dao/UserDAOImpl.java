@@ -108,4 +108,51 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	@Override
+	public User get(String userid) {
+		User user = null;
+		try {
+			user = new User();
+			String sql = "select * from mst_user where user_id LIKE \'"+userid +"\'";
+			connection = DBConnectionUtil.openConnection();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sql);
+			if(resultSet.next()) {
+				user.setUserId(resultSet.getString("user_id"));
+				user.setPassword(resultSet.getString("password"));
+				user.setFamilyName(resultSet.getString("family_name"));
+				user.setFirstName(resultSet.getString("first_name"));
+				user.setGenderId(resultSet.getInt("gender_id"));
+				user.setAuthorityId(resultSet.getInt("authority_id"));
+				user.setAge(resultSet.getInt("age"));
+				user.setAdmin(resultSet.getInt("admin"));
+				user.setCreateUserId(resultSet.getString("create_user_id"));
+				user.setUpdateUserID(resultSet.getString("update_user_id"));
+				user.setCreateDate(resultSet.getLong("create_date"));
+				user.setUpdateDate(resultSet.getLong("update_date"));
+			}
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+	
+		return user;
+	}
+
+	@Override
+	public boolean update(User user) {
+		boolean flag = false;
+		try {
+			String sql = "UPDATE mst_user SET password = '"+user.getPassword()+"', family_name = '"+user.getFamilyName()+"', first_name = '"+user.getFirstName()+"', gender_id = '"+user.getGenderId()+"',age = '"+user.getAge()+"', admin = '"+user.getAdmin()+"', create_user_id = '"+user.getCreateUserId()+"', "
+					+ "update_user_id = '"+user.getUpdateUserID()+"',create_date = '"+user.getCreateDate()+"', "
+							+ "update_date = '"+user.getUpdateDate()+"', authority_id = '"+user.getAuthorityId()+"' where user_id LIKE \'"+user.getUserId()+"\'";
+			connection = DBConnectionUtil.openConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+			flag = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
 }

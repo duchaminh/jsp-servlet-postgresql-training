@@ -11,4 +11,6 @@ public interface UserDAO {
 	List<UserDTO> get();
 	boolean save(User user);
 	boolean isOverLapUserId(String userId);
+	User get(String userid);
+	boolean update(User user);
 }

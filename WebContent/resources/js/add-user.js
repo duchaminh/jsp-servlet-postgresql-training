@@ -3,18 +3,13 @@ $("#adduser").validate({
             firstName: "required",
             familyName: "required",
             userId:"required",
-            password:"required",
-            age: {
-            	required:true,
-            	min:0
-            }
+            password:"required"
         },
         messages: {
             firstName: "Please enter your firstname",
-            familyName: "Please enter your fimaly name",
+            familyName: "Please enter fimaly name",
             userId: "Please enter your user id",
-            password: "please enter your password",
-            age: "Please enter a valid age"
+            password: "please enter your password"
         },
         submitHandler: function (form) {
             $("#myModal").modal('show');

@@ -26,7 +26,7 @@
 				<th>Sex</th>
 				<th>Age</th>
 				<th>Authority Name</th>
-				<th><button class ="btn btn-primary" onclick="window.location.href= 'views/add-user.jsp'"> ADD </button></th>
+				<th><button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/UserController?action=ADD'"> ADD </button></th>
 			</tr>
 			<c:set var="i" value="${1}" />
 			<c:forEach items="${users}" var="user">
@@ -37,7 +37,7 @@
 					<td>${user.genderName}</td>
 					<td>${user.age}</td>
 					<td>${user.authorityName}</td>
-					<td>Edit|Delete</td>
+					<td><button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=EDIT&id=${user.userId }'">Edit</button></td>
 				</tr>
 			<c:set var="i" value="${i+1}" />
 			</c:forEach>
