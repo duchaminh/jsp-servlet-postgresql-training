@@ -37,11 +37,32 @@
 					<td>${user.genderName}</td>
 					<td>${user.age}</td>
 					<td>${user.authorityName}</td>
-					<td><button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=EDIT&id=${user.userId }'">Edit</button></td>
+					<td>
+					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=EDIT&id=${user.userId }'">Edit</button>
+					|
+					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE&id=${user.userId }'">DELETE</button>
+					</td>		
 				</tr>
 			<c:set var="i" value="${i+1}" />
 			</c:forEach>
 			
 		</table>
+		
+		<!-- modal -->
+	    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">	
+	            <div class="modal-body">
+	                <p>Are You Sure You want To delete user</p>
+	                
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn" data-dismiss="modal" aria-hidden="true">Close This Modal</button>
+	                <button class="btn-primary btn" id="SubForm">Confirm and Submit The Form</button>
+	            </div>
+	        </div>
+	    </div>
+		</div>
+		
 </body>
 </html>

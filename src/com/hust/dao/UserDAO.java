@@ -13,4 +13,5 @@ public interface UserDAO {
 	boolean isOverLapUserId(String userId);
 	User get(String userid);
 	boolean update(User user);
+	boolean delete(String userid);
 }

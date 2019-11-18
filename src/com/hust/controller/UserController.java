@@ -41,10 +41,36 @@ public class UserController extends HttpServlet {
 		
 		if(action.equals("EDIT")) {
 			getSingleUser(request,response);
-		}else {
+		}
+		else if(action.equals("DELETE")) {
+			String userId = request.getParameter("id");
+			request.setAttribute("userId", userId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/delete-user.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(action.equals("DELETE-CONFIRM")){
+			System.out.println("delete");
+			deleteUser(request, response);
+		}
+		else {
 			request.setAttribute("action", "ADD");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
 			dispatcher.forward(request, response);
+		}
+		
+	}
+
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userid = request.getParameter("id");
+		if(userDAO.delete(userid)) {
+			request.setAttribute("delete_msg", "Delete success");
+			
+			List<UserDTO> users = userDAO.get();
+			request.setAttribute("users", users);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+			dispatcher.forward(request, response);
+			
 		}
 		
 	}

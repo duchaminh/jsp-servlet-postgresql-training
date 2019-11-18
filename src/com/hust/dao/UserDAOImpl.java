@@ -155,4 +155,19 @@ public class UserDAOImpl implements UserDAO {
 		return flag;
 	}
 
+	@Override
+	public boolean delete(String userid){
+		boolean flag = false;
+		try {
+			String sql = "DELETE from mst_user where user_id LIKE \'"+userid+"\'";
+			connection = DBConnectionUtil.openConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+			flag = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
 }
