@@ -67,17 +67,29 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return users;
 	}
-
+	
 	@Override
 	public boolean save(User user) {
 		boolean flag = false;
 		try {
-			String sql = "INSERT INTO mst_user(user_id, password, family_name, first_name, gender_id, authority_id,age, admin, create_user_id, update_user_id, create_date, update_date)"
-			  + "VALUES('"+user.getUserId()+"', '"+user.getPassword()+"', '"+user.getFamilyName()+"', '"+user.getFirstName()+"', "
-			  + "'"+user.getGenderId()+"', '"+user.getAuthorityId()+"', '"+user.getAge()+"', '"+user.getAdmin()+"', "
-			  + "'"+user.getCreateUserId()+"', '"+user.getUpdateUserID()+"', '"+user.getCreateDate()+"', '"+user.getUpdateDate()+"')";
+			String sql = "INSERT INTO mst_user(user_id, password, family_name, first_name, gender_id, authority_id,age, admin, create_user_id, update_user_id, create_date, update_date) "
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, user.getUserId());
+			preparedStatement.setString(2, user.getPassword());
+			preparedStatement.setString(3, user.getFamilyName());
+			preparedStatement.setString(4, user.getFirstName());
+			preparedStatement.setInt(5, user.getGenderId());
+			preparedStatement.setInt(6, user.getAuthorityId());
+			preparedStatement.setInt(7, user.getAge());
+			preparedStatement.setInt(8, user.getAdmin());
+			preparedStatement.setString(9, user.getCreateUserId());
+			preparedStatement.setString(10, user.getUpdateUserID());
+			preparedStatement.setLong(11, user.getCreateDate());
+			preparedStatement.setLong(12, user.getUpdateDate());
+			
 			preparedStatement.executeUpdate();
 			flag = true;
 		}catch(SQLException ex) {
@@ -142,11 +154,23 @@ public class UserDAOImpl implements UserDAO {
 	public boolean update(User user) {
 		boolean flag = false;
 		try {
-			String sql = "UPDATE mst_user SET password = '"+user.getPassword()+"', family_name = '"+user.getFamilyName()+"', first_name = '"+user.getFirstName()+"', gender_id = '"+user.getGenderId()+"',age = '"+user.getAge()+"', admin = '"+user.getAdmin()+"', create_user_id = '"+user.getCreateUserId()+"', "
-					+ "update_user_id = '"+user.getUpdateUserID()+"',create_date = '"+user.getCreateDate()+"', "
-							+ "update_date = '"+user.getUpdateDate()+"', authority_id = '"+user.getAuthorityId()+"' where user_id LIKE \'"+user.getUserId()+"\'";
+			String sql = "UPDATE mst_user SET password = ?, family_name = ?, first_name = ?, gender_id = ?,age = ?, admin = ?, create_user_id = ?, "
+					+ "update_user_id = ?,create_date = ?, update_date = ?, authority_id = ? where user_id LIKE \'"+user.getUserId()+"\'";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, user.getPassword());
+			preparedStatement.setString(2, user.getFamilyName());
+			preparedStatement.setString(3, user.getFirstName());
+			preparedStatement.setInt(4, user.getGenderId());
+			preparedStatement.setInt(5, user.getAge());
+			preparedStatement.setInt(6, user.getAdmin());
+			preparedStatement.setString(7, user.getCreateUserId());
+			preparedStatement.setString(8, user.getUpdateUserID());
+			preparedStatement.setLong(9, user.getCreateDate());
+			preparedStatement.setLong(10, user.getUpdateDate());
+			preparedStatement.setInt(11, user.getAuthorityId());
+			
 			preparedStatement.executeUpdate();
 			flag = true;
 		}catch(SQLException e) {
