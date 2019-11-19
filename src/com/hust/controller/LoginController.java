@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
+import com.hust.dao.BaseDAO;
+import com.hust.dao.BaseDAOImpl;
 import com.hust.dao.UserDAO;
 import com.hust.dao.UserDAOImpl;
+import com.hust.dto.AuthorityDTO;
 import com.hust.dto.UserDTO;
 
 /**
@@ -24,8 +26,11 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     UserDAO userDAO = null;
+    BaseDAO baseDAO = null;
+    
     public LoginController() {
         userDAO = new UserDAOImpl();
+        baseDAO = new BaseDAOImpl();
     }
 
 	/**
@@ -61,7 +66,9 @@ public class LoginController extends HttpServlet {
 	
 	public void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<UserDTO> users = userDAO.get();
+		List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();
 		request.setAttribute("users", users);
+		request.setAttribute("listAuthority", listAuthority);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
 		dispatcher.forward(request, response);

@@ -32,10 +32,8 @@
 		    <div class="form-group">
 			  <label for="author">Authority:</label>
 			  <select class="form-control" name = "authorityId">
-			    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
-				<sql:query var="rs" dataSource="${db}">SELECT authority_id,authority_name FROM "mst_role"</sql:query>
-				<c:forEach items="${rs.rows}" var = "row" >
-					<option value = '<c:out value="${row.authority_id}"/>'><c:out value="${row.authority_name}"></c:out></option>
+				<c:forEach items="${listAuthority}" var = "author" >
+					<option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
 				</c:forEach>
 			  </select>
 			</div>
@@ -65,9 +63,9 @@
 					<td>${user.age}</td>
 					<td>${user.authorityName}</td>
 					<td>
-					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=EDIT&id=${user.userId }'">Edit</button>
+					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=EDIT&id=${user.userId }&name=${user.firstName} ${user.familyName}'">Edit</button>
 					|
-					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE&id=${user.userId }'">DELETE</button>
+					<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE&id=${user.userId }&name=${user.firstName} ${user.familyName}'">DELETE</button>
 					</td>		
 				</tr>
 			<c:set var="i" value="${i+1}" />

@@ -53,20 +53,16 @@
 		<div class="form-group">
 		  <label for="author">Authority:</label>
 		  <select class="form-control" name = "authorityId">
-		    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
-			<sql:query var="rs" dataSource="${db}">SELECT authority_id,authority_name FROM "mst_role"</sql:query>
-			<c:forEach items="${rs.rows}" var = "row" >
-				<option value = '<c:out value="${row.authority_id}"/>'><c:out value="${row.authority_name}"></c:out></option>
+			<c:forEach items="${listAuthority}" var = "author" >
+				<option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
 			</c:forEach>
 		  </select>
 		</div>
 		<div class="form-group">
 		  <label for="gender">Gender:</label>
 		  <select class="form-control" name = "genderId">
-		    <sql:setDataSource var = "db" driver = "org.postgresql.Driver" url ="jdbc:postgresql://localhost/training" user ="postgres" password="toank21"/>
-			<sql:query var="rs" dataSource="${db}">SELECT gender_name,gender_id FROM "mst_gender"</sql:query>
-			<c:forEach items="${rs.rows}" var = "row" >
-				<option value = '<c:out value="${row.gender_id}"/>'><c:out value="${row.gender_name}"></c:out></option>
+			<c:forEach items="${listGender}" var = "gender" >
+				<option value = '<c:out value="${gender.genderId}"/>'><c:out value="${gender.genderName}"></c:out></option>
 			</c:forEach>
 		  </select>
 		</div>

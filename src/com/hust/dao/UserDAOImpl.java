@@ -125,10 +125,11 @@ public class UserDAOImpl implements UserDAO {
 		User user = null;
 		try {
 			user = new User();
-			String sql = "select * from mst_user where user_id LIKE \'"+userid +"\'";
+			String sql = "select * from mst_user where user_id LIKE ?";
 			connection = DBConnectionUtil.openConnection();
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userid);
+			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
 				user.setUserId(resultSet.getString("user_id"));
 				user.setPassword(resultSet.getString("password"));
@@ -155,7 +156,7 @@ public class UserDAOImpl implements UserDAO {
 		boolean flag = false;
 		try {
 			String sql = "UPDATE mst_user SET password = ?, family_name = ?, first_name = ?, gender_id = ?,age = ?, admin = ?, "
-					+ "update_user_id = ?, update_date = ?, authority_id = ? where user_id LIKE \'"+user.getUserId()+"\'";
+					+ "update_user_id = ?, update_date = ?, authority_id = ? where user_id LIKE ?";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			
@@ -170,6 +171,7 @@ public class UserDAOImpl implements UserDAO {
 			
 			preparedStatement.setLong(8, user.getUpdateDate());
 			preparedStatement.setInt(9, user.getAuthorityId());
+			preparedStatement.setString(10, user.getUserId());
 			
 			preparedStatement.executeUpdate();
 			flag = true;
@@ -183,9 +185,10 @@ public class UserDAOImpl implements UserDAO {
 	public boolean delete(String userid){
 		boolean flag = false;
 		try {
-			String sql = "DELETE from mst_user where user_id LIKE \'"+userid+"\'";
+			String sql = "DELETE from mst_user where user_id LIKE ?";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userid);
 			preparedStatement.executeUpdate();
 			flag = true;
 		}catch(SQLException e) {

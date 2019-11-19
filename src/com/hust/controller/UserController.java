@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hust.dao.BaseDAO;
+import com.hust.dao.BaseDAOImpl;
 import com.hust.dao.UserDAO;
 import com.hust.dao.UserDAOImpl;
+import com.hust.dto.AuthorityDTO;
+import com.hust.dto.GenderDTO;
 import com.hust.dto.UserDTO;
 
 import model.User;
@@ -27,11 +31,15 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	UserDAO userDAO = null;
+	BaseDAO baseDAO = null;
+	List<AuthorityDTO> listAuthority = null;
+	List<GenderDTO> listGender = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserController() {
         userDAO = new UserDAOImpl();
+        baseDAO = new BaseDAOImpl();
         // TODO Auto-generated constructor stub
     }
 
@@ -40,6 +48,8 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		listAuthority = baseDAO.getListAuthority();
+		listGender = baseDAO.getListGender();
 		
 		if(action.equals("EDIT")) {
 			String userid = request.getParameter("id");
@@ -47,7 +57,9 @@ public class UserController extends HttpServlet {
 		}
 		else if(action.equals("DELETE")) {
 			String userId = request.getParameter("id");
+			String username = request.getParameter("name");
 			request.setAttribute("userId", userId);
+			request.setAttribute("username", username);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/delete-user.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -60,7 +72,11 @@ public class UserController extends HttpServlet {
 			System.out.println("SEARCH");
 		}
 		else {
+			//List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();
+			request.setAttribute("listAuthority", listAuthority);
+			request.setAttribute("listGender", listGender);
 			request.setAttribute("action", "ADD");
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -69,12 +85,10 @@ public class UserController extends HttpServlet {
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response,String userid) throws ServletException, IOException {
 		if(userDAO.delete(userid)) {
-			request.setAttribute("delete_msg", "Delete success");
+			request.setAttribute("success_msg", "Delete success");
 			
-			List<UserDTO> users = userDAO.get();
-			request.setAttribute("users", users);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -91,6 +105,8 @@ public class UserController extends HttpServlet {
 		user = userDAO.get(userid);
 		request.setAttribute("user", user);
 		request.setAttribute("action", "EDIT");
+		request.setAttribute("listAuthority", listAuthority);
+		request.setAttribute("listGender", listGender);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
 		dispatcher.forward(request, response);	
 	}
@@ -107,7 +123,10 @@ public class UserController extends HttpServlet {
 			System.out.println(userId);
 			User user = updateUser(request, response, userId);	
 			if(userDAO.update(user)) {
-				response.sendRedirect(request.getContextPath() +"/logincontroller");
+				request.setAttribute("success_msg", "Update success");
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
 		// add data to database
@@ -124,7 +143,10 @@ public class UserController extends HttpServlet {
 			else{
 				User user = createUser(request, response, userId);			
 				if(userDAO.save(user)) {
-					response.sendRedirect(request.getContextPath() +"/logincontroller");			
+					request.setAttribute("success_msg", "Add success");
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
+					dispatcher.forward(request, response);			
 				}
 			}
 		}
@@ -143,7 +165,8 @@ public class UserController extends HttpServlet {
 		user.setFirstName(request.getParameter("firstName"));
 		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
 		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
-		user.setAge(Integer.parseInt(request.getParameter("age")));
+		if(!request.getParameter("age").isEmpty())
+			user.setAge(Integer.parseInt(request.getParameter("age")));
 		if(request.getParameter("admin") == null)
 			user.setAdmin(0);
 		else
