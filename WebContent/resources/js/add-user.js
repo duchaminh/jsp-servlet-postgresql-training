@@ -3,7 +3,11 @@ $("#adduser").validate({
             firstName: "required",
             familyName: "required",
             userId:"required",
-            password:"required"
+            password:"required",
+            age:{
+            	number:true,
+            	min:0
+            }
         },
         messages: {
             firstName: "Please enter your firstname",

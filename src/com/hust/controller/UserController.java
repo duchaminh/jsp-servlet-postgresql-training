@@ -1,6 +1,8 @@
 package com.hust.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -40,7 +42,8 @@ public class UserController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		if(action.equals("EDIT")) {
-			getSingleUser(request,response);
+			String userid = request.getParameter("id");
+			getSingleUser(request,response, userid);
 		}
 		else if(action.equals("DELETE")) {
 			String userId = request.getParameter("id");
@@ -50,7 +53,11 @@ public class UserController extends HttpServlet {
 		}
 		else if(action.equals("DELETE-CONFIRM")){
 			System.out.println("delete");
-			deleteUser(request, response);
+			String userid = request.getParameter("id");
+			deleteUser(request, response, userid);
+		}
+		else if(action.equals("SEARCH")) {
+			System.out.println("SEARCH");
 		}
 		else {
 			request.setAttribute("action", "ADD");
@@ -60,8 +67,7 @@ public class UserController extends HttpServlet {
 		
 	}
 
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userid = request.getParameter("id");
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response,String userid) throws ServletException, IOException {
 		if(userDAO.delete(userid)) {
 			request.setAttribute("delete_msg", "Delete success");
 			
@@ -74,9 +80,12 @@ public class UserController extends HttpServlet {
 		}
 		
 	}
-
-	private void getSingleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userid = request.getParameter("id");
+	
+	/**
+	 * Get single user with id parameter for update operation
+	 */
+	
+	private void getSingleUser(HttpServletRequest request, HttpServletResponse response, String userid) throws ServletException, IOException {
 		User user = new User();
 		
 		user = userDAO.get(userid);
@@ -92,24 +101,27 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = (String) request.getParameter("action");
-		//System.out.print(action);
+		//Edit data
 		if(action.equals("EDIT")) {
 			String userId = request.getParameter("userId");
 			System.out.println(userId);
-			User user = createUser(request, response, userId);	
+			User user = updateUser(request, response, userId);	
 			if(userDAO.update(user)) {
 				response.sendRedirect(request.getContextPath() +"/logincontroller");
 			}
 		}
+		// add data to database
 		else {
 			String userId = request.getParameter("userId");
-			
+			//check user id is overlap
 			if(userDAO.isOverLapUserId(userId)) {
-				System.out.println(":(((((((((((((((");
 				request.setAttribute("isoverlap", "User id is overlapping");
+				request.setAttribute("action", "ADD");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
 				dispatcher.forward(request, response);
-			}else{
+			}
+			//if user id is valid, insert data to DB
+			else{
 				User user = createUser(request, response, userId);			
 				if(userDAO.save(user)) {
 					response.sendRedirect(request.getContextPath() +"/logincontroller");			
@@ -119,6 +131,9 @@ public class UserController extends HttpServlet {
 		
 	}
 	
+	/**
+	 * Create user from form input
+	 */
 	public User createUser(HttpServletRequest request, HttpServletResponse response, String userId) {
 		User user = new User();
 		HttpSession session = request.getSession();
@@ -135,12 +150,48 @@ public class UserController extends HttpServlet {
 			user.setAdmin(1);
 		user.setCreateUserId((String) session.getAttribute("name"));
 		user.setUpdateUserID((String) session.getAttribute("name"));
-		user.setCreateDate(20191113);
-		user.setUpdateDate(20191113);
+		
+		Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		System.out.println(Long.parseLong(formatter.format(date)));
+		user.setCreateDate(Long.parseLong(formatter.format(date)));
+		user.setUpdateDate(Long.parseLong(formatter.format(date)));
 		
 		return user;
 	}
 	
+	/**
+	 * Update user from form input
+	 */
+	public User updateUser(HttpServletRequest request, HttpServletResponse response, String userId) {
+		User user = new User();
+		HttpSession session = request.getSession();
+		user.setUserId(userId);
+		user.setPassword(request.getParameter("password"));
+		user.setFamilyName(request.getParameter("familyName"));
+		user.setFirstName(request.getParameter("firstName"));
+		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
+		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
+		user.setAge(Integer.parseInt(request.getParameter("age")));
+		if(request.getParameter("admin") == null)
+			user.setAdmin(0);
+		else
+			user.setAdmin(1);
+		user.setUpdateUserID((String) session.getAttribute("name"));
+		
+		Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		System.out.println(Long.parseLong(formatter.format(date)));
+		user.setUpdateDate(Long.parseLong(formatter.format(date)));
+		
+		return user;
+	}
+	
+	/**
+	 * List user dto for home page
+	 */
 	public void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<UserDTO> users = userDAO.get();
 		request.setAttribute("users", users);

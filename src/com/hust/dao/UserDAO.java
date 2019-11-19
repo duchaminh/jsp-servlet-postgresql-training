@@ -14,4 +14,5 @@ public interface UserDAO {
 	User get(String userid);
 	boolean update(User user);
 	boolean delete(String userid);
+	List<UserDTO> search(String familyname, String firstname, String authorityid);
 }

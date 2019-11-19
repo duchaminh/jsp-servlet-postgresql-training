@@ -154,8 +154,8 @@ public class UserDAOImpl implements UserDAO {
 	public boolean update(User user) {
 		boolean flag = false;
 		try {
-			String sql = "UPDATE mst_user SET password = ?, family_name = ?, first_name = ?, gender_id = ?,age = ?, admin = ?, create_user_id = ?, "
-					+ "update_user_id = ?,create_date = ?, update_date = ?, authority_id = ? where user_id LIKE \'"+user.getUserId()+"\'";
+			String sql = "UPDATE mst_user SET password = ?, family_name = ?, first_name = ?, gender_id = ?,age = ?, admin = ?, "
+					+ "update_user_id = ?, update_date = ?, authority_id = ? where user_id LIKE \'"+user.getUserId()+"\'";
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			
@@ -165,11 +165,11 @@ public class UserDAOImpl implements UserDAO {
 			preparedStatement.setInt(4, user.getGenderId());
 			preparedStatement.setInt(5, user.getAge());
 			preparedStatement.setInt(6, user.getAdmin());
-			preparedStatement.setString(7, user.getCreateUserId());
-			preparedStatement.setString(8, user.getUpdateUserID());
-			preparedStatement.setLong(9, user.getCreateDate());
-			preparedStatement.setLong(10, user.getUpdateDate());
-			preparedStatement.setInt(11, user.getAuthorityId());
+			
+			preparedStatement.setString(7, user.getUpdateUserID());
+			
+			preparedStatement.setLong(8, user.getUpdateDate());
+			preparedStatement.setInt(9, user.getAuthorityId());
 			
 			preparedStatement.executeUpdate();
 			flag = true;
@@ -192,6 +192,22 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public List<UserDTO> search(String familyname, String firstname, String authorityid) {
+		// TODO Auto-generated method stub
+		if(familyname != null && !familyname.isEmpty()) {
+			if(firstname != null) {
+				
+			}else {
+				
+			}
+		}else {
+			
+		}
+		return null;
 	}
 
 }
