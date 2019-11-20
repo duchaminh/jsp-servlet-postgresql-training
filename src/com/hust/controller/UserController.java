@@ -20,6 +20,10 @@ import com.hust.dao.UserDAOImpl;
 import com.hust.dto.AuthorityDTO;
 import com.hust.dto.GenderDTO;
 import com.hust.dto.UserDTO;
+import com.hust.util.UserValidator;
+import com.hust.util.UserValidatorImpl;
+import com.hust.util.validators.genericvalidator.UserException;
+import org.apache.commons.lang.StringUtils;
 
 import model.User;
 
@@ -29,6 +33,9 @@ import model.User;
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final int MIN_AGE = 18;
+	private static final int MAX_AGE = 60;
     
 	UserDAO userDAO = null;
 	BaseDAO baseDAO = null;
@@ -73,12 +80,7 @@ public class UserController extends HttpServlet {
 		}
 		else {
 			//List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();
-			request.setAttribute("listAuthority", listAuthority);
-			request.setAttribute("listGender", listGender);
-			request.setAttribute("action", "ADD");
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
-			dispatcher.forward(request, response);
+			goToAddUpdatePage(request, response,"ADD");
 		}
 		
 	}
@@ -86,7 +88,6 @@ public class UserController extends HttpServlet {
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response,String userid) throws ServletException, IOException {
 		if(userDAO.delete(userid)) {
 			request.setAttribute("success_msg", "Delete success");
-			
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
 			dispatcher.forward(request, response);
@@ -122,11 +123,22 @@ public class UserController extends HttpServlet {
 			String userId = request.getParameter("userId");
 			System.out.println(userId);
 			User user = updateUser(request, response, userId);	
-			if(userDAO.update(user)) {
-				request.setAttribute("success_msg", "Update success");
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
-				dispatcher.forward(request, response);
+			
+			UserValidator userValidator = new UserValidatorImpl();
+			try {
+				userValidator.validate(user);
+				if(userDAO.update(user)) {
+					request.setAttribute("success_msg", "Update success");
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
+					dispatcher.forward(request, response);
+				}else {
+					getSingleUser(request,response, userId);
+				}
+			} catch (UserException e) {
+				e.printStackTrace();
+				request.setAttribute("update_err", e.getMessage());
+				getSingleUser(request,response, userId);
 			}
 		}
 		// add data to database
@@ -135,18 +147,27 @@ public class UserController extends HttpServlet {
 			//check user id is overlap
 			if(userDAO.isOverLapUserId(userId)) {
 				request.setAttribute("isoverlap", "User id is overlapping");
-				request.setAttribute("action", "ADD");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
-				dispatcher.forward(request, response);
+				goToAddUpdatePage(request, response,"ADD");
 			}
 			//if user id is valid, insert data to DB
 			else{
-				User user = createUser(request, response, userId);			
-				if(userDAO.save(user)) {
-					request.setAttribute("success_msg", "Add success");
-					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
-					dispatcher.forward(request, response);			
+				User user = createUser(request, response, userId);	
+				
+				UserValidator userValidator = new UserValidatorImpl();
+				try {
+					userValidator.validate(user);
+					if(userDAO.save(user)) {
+						request.setAttribute("success_msg", "Add success");
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
+						dispatcher.forward(request, response);			
+					}else {
+						goToAddUpdatePage(request, response,"ADD");
+					}
+				} catch (UserException e) {
+					e.printStackTrace();
+					request.setAttribute("add_err", e.getMessage());
+					goToAddUpdatePage(request, response,"ADD");
 				}
 			}
 		}
@@ -165,8 +186,20 @@ public class UserController extends HttpServlet {
 		user.setFirstName(request.getParameter("firstName"));
 		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
 		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
-		if(!request.getParameter("age").isEmpty())
-			user.setAge(Integer.parseInt(request.getParameter("age")));
+		if(!request.getParameter("age").isEmpty()) {
+			if(StringUtils.isNumeric(request.getParameter("age"))) {
+				if(Integer.parseInt(request.getParameter("age")) > MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
+					user.setAge(Integer.parseInt(request.getParameter("age")));
+				else
+					user.setAge(-1);
+			}else // aaaaa
+				user.setAge(-1);
+			
+		}
+		//age is null
+		else {
+			user.setAge(0);
+		}
 		if(request.getParameter("admin") == null)
 			user.setAdmin(0);
 		else
@@ -196,7 +229,20 @@ public class UserController extends HttpServlet {
 		user.setFirstName(request.getParameter("firstName"));
 		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
 		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
-		user.setAge(Integer.parseInt(request.getParameter("age")));
+		if(!request.getParameter("age").isEmpty()) {
+			if(StringUtils.isNumeric(request.getParameter("age"))) {
+				if(Integer.parseInt(request.getParameter("age")) > MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
+					user.setAge(Integer.parseInt(request.getParameter("age")));
+				else
+					user.setAge(-1);
+			}else // aaaaa
+				user.setAge(-1);
+			
+		}
+		//age is null
+		else {
+			user.setAge(0);
+		}
 		if(request.getParameter("admin") == null)
 			user.setAdmin(0);
 		else
@@ -220,6 +266,20 @@ public class UserController extends HttpServlet {
 		request.setAttribute("users", users);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("logincontroller");
+		dispatcher.forward(request, response);
+	}
+	
+	/**
+	 * set attribute and send request to add-update page
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	public void goToAddUpdatePage(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
+		request.setAttribute("listAuthority", listAuthority);
+		request.setAttribute("listGender", listGender);
+		request.setAttribute("action", action);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
 		dispatcher.forward(request, response);
 	}
 

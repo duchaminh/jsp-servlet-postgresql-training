@@ -19,6 +19,12 @@
 		<c:if test="${not empty isoverlap}">
    			<c:out value="${isoverlap}"/>
 		</c:if> 
+		<c:if test="${not empty update_err}">
+   			<c:out value="${update_err}"/>
+		</c:if> 
+		<c:if test="${not empty add_err}">
+   			<c:out value="${add_err}"/>
+		</c:if> 
 	</h1>
 	<h1><c:out value="${action}"/></h1>
 	<form id = "adduser" action="${pageContext.request.contextPath}/UserController?action=${action}" method = "POST">
@@ -69,9 +75,7 @@
 		<div class="checkbox">
 		  <label><input type="checkbox" value = "${user.admin}" name ="admin">Admin</label>
 		</div>
-		<c:if test="${not empty action}">
-			<%request.setAttribute("action", "EDIT"); %>
-		</c:if>
+		<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">Back</button>
 		<button class = "btn btn-primary" type ="submit">Save</button>
     </form>
    <!-- modal -->

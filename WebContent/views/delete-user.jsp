@@ -18,6 +18,7 @@
 			<label for="userid">User ID: <c:out value="${userId}"/></label><br>
 			<label for="userid">User ID: <c:out value="${username}"/></label>
 		</div>
+		<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">Back</button>
 		<button class = "btn btn-danger" type ="submit"  onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE-CONFIRM&id=${userId }'">Delete</button>
 </body>
 </html>

@@ -1,19 +1,19 @@
 $("#adduser").validate({
         rules: {
-            firstName: "required",
-            familyName: "required",
+            //firstName: "required",
+            //familyName: "required",
             userId:"required",
-            password:"required",
-            age:{
-            	number:true,
-            	min:0
-            }
+            //password:"required",
+            //age:{
+            //	number:true,
+            //	min:0
+            //}
         },
         messages: {
-            firstName: "Please enter your firstname",
-            familyName: "Please enter fimaly name",
+            //firstName: "Please enter your firstname",
+            //familyName: "Please enter famaly name",
             userId: "Please enter your user id",
-            password: "please enter your password"
+            //password: "please enter your password"
         },
         submitHandler: function (form) {
             $("#myModal").modal('show');

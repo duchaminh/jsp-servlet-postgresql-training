@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>You are not authenticated</h1>
+<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}'">Login page</button>
 </body>
 </html>
