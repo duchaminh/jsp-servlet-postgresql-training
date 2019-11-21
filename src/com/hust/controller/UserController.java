@@ -41,12 +41,14 @@ public class UserController extends HttpServlet {
 	BaseDAO baseDAO = null;
 	List<AuthorityDTO> listAuthority = null;
 	List<GenderDTO> listGender = null;
+	UserValidator userValidator = null;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserController() {
         userDAO = new UserDAOImpl();
         baseDAO = new BaseDAOImpl();
+        userValidator = new UserValidatorImpl();
         // TODO Auto-generated constructor stub
     }
 
@@ -63,10 +65,6 @@ public class UserController extends HttpServlet {
 			getSingleUser(request,response, userid);
 		}
 		else if(action.equals("DELETE")) {
-			String userId = request.getParameter("id");
-			String username = request.getParameter("name");
-			request.setAttribute("userId", userId);
-			request.setAttribute("username", username);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/delete-user.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -90,8 +88,12 @@ public class UserController extends HttpServlet {
 			request.setAttribute("success_msg", "Delete success");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
-			dispatcher.forward(request, response);
+			dispatcher.forward(request, response);		
+		}else {
+			request.setAttribute("fail_msg", "Delete fail");
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/delete-user.jsp");
+			dispatcher.forward(request, response);	
 		}
 		
 	}
@@ -105,11 +107,7 @@ public class UserController extends HttpServlet {
 		
 		user = userDAO.get(userid);
 		request.setAttribute("user", user);
-		request.setAttribute("action", "EDIT");
-		request.setAttribute("listAuthority", listAuthority);
-		request.setAttribute("listGender", listGender);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/add-edit-user.jsp");
-		dispatcher.forward(request, response);	
+		goToAddUpdatePage(request, response, "EDIT");
 	}
 
 	/**
@@ -124,7 +122,7 @@ public class UserController extends HttpServlet {
 			System.out.println(userId);
 			User user = updateUser(request, response, userId);	
 			
-			UserValidator userValidator = new UserValidatorImpl();
+			//validate
 			try {
 				userValidator.validate(user);
 				if(userDAO.update(user)) {
@@ -152,8 +150,7 @@ public class UserController extends HttpServlet {
 			//if user id is valid, insert data to DB
 			else{
 				User user = createUser(request, response, userId);	
-				
-				UserValidator userValidator = new UserValidatorImpl();
+				//validate
 				try {
 					userValidator.validate(user);
 					if(userDAO.save(user)) {
@@ -192,7 +189,7 @@ public class UserController extends HttpServlet {
 					user.setAge(Integer.parseInt(request.getParameter("age")));
 				else
 					user.setAge(-1);
-			}else // aaaaa
+			}else 
 				user.setAge(-1);
 			
 		}

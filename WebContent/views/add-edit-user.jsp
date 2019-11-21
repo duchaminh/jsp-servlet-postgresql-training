@@ -14,6 +14,11 @@
 <link href="<c:url value="/resources/css/error.css" />" rel="stylesheet">
 </head>
 <body>
+	<%
+		if(session.getAttribute("name") != null){
+			response.sendRedirect(request.getContextPath() +"/logincontroller");
+		}
+	%>
 <h1>Add User</h1>
 	<h1 style = "text-align: center; color: red"> 
 		<c:if test="${not empty isoverlap}">

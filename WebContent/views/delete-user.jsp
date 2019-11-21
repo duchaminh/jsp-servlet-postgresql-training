@@ -15,10 +15,10 @@
 <h1> Delete Confirm page</h1>
 		<h1>Are You Sure You want To delete this user</h1>
 		<div class = "form-group">
-			<label for="userid">User ID: <c:out value="${userId}"/></label><br>
-			<label for="userid">User ID: <c:out value="${username}"/></label>
+			<label for="userid">User ID: <c:out value="${param.id}"/></label><br>
+			<label for="userid">User name: <c:out value="${param.name}"/></label>
 		</div>
 		<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">Back</button>
-		<button class = "btn btn-danger" type ="submit"  onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE-CONFIRM&id=${userId }'">Delete</button>
+		<button class = "btn btn-danger" type ="submit"  onclick="window.location.href='${pageContext.request.contextPath}/UserController?action=DELETE-CONFIRM&id=${param.id }&name=${param.name}'">Delete</button>
 </body>
 </html>
