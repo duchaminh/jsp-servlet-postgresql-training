@@ -13,17 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.hust.dao.BaseDAO;
 import com.hust.dao.BaseDAOImpl;
 import com.hust.dao.UserDAO;
 import com.hust.dao.UserDAOImpl;
+import com.hust.dto.AggregateByAuthority;
 import com.hust.dto.AuthorityDTO;
 import com.hust.dto.GenderDTO;
 import com.hust.dto.UserDTO;
+import com.hust.dto.UserDTOEdit;
 import com.hust.util.UserValidator;
 import com.hust.util.UserValidatorImpl;
 import com.hust.util.validators.genericvalidator.UserException;
-import org.apache.commons.lang.StringUtils;
 
 import model.User;
 
@@ -34,7 +37,7 @@ import model.User;
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int MIN_AGE = 18;
+	private static final int MIN_AGE = 0;
 	private static final int MAX_AGE = 60;
     
 	UserDAO userDAO = null;
@@ -56,9 +59,8 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
-		listAuthority = baseDAO.getListAuthority();
-		listGender = baseDAO.getListGender();
 		
 		if(action.equals("EDIT")) {
 			String userid = request.getParameter("id");
@@ -73,8 +75,28 @@ public class UserController extends HttpServlet {
 			String userid = request.getParameter("id");
 			deleteUser(request, response, userid);
 		}
-		else if(action.equals("SEARCH")) {
-			System.out.println("SEARCH");
+		else if(action.equals("AGGREGATE")) {
+			System.out.println("AGGREGATE");
+			List<AggregateByAuthority> aggregateByAuthoritys = null;
+			
+			while(aggregateByAuthoritys == null) {
+				aggregateByAuthoritys = userDAO.listAggregateByAuthority();
+				userDAO.clusteringUserDtoByAuthorityId(aggregateByAuthoritys);
+				userDAO.clusteringComplete(aggregateByAuthoritys);
+			}
+			
+			request.setAttribute("aggregate", aggregateByAuthoritys);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("views/aggregate-page.jsp");
+			dispatcher.forward(request, response);
+		}else if(action.equals("LOGOUT")) {
+			System.out.println("logout");
+			HttpSession session = request.getSession(false);
+	        if (session != null) {
+	            session.removeAttribute("name");
+	             
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+	            dispatcher.forward(request, response);
+	        }
 		}
 		else {
 			//List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();
@@ -103,7 +125,7 @@ public class UserController extends HttpServlet {
 	 */
 	
 	private void getSingleUser(HttpServletRequest request, HttpServletResponse response, String userid) throws ServletException, IOException {
-		User user = new User();
+		UserDTOEdit user = new UserDTOEdit();
 		
 		user = userDAO.get(userid);
 		request.setAttribute("user", user);
@@ -114,6 +136,7 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		// TODO Auto-generated method stub
 		String action = (String) request.getParameter("action");
 		//Edit data
@@ -180,12 +203,14 @@ public class UserController extends HttpServlet {
 		user.setUserId(userId);
 		user.setPassword(request.getParameter("password"));
 		user.setFamilyName(request.getParameter("familyName"));
+		System.out.println("青山さん");
+		System.out.println(request.getParameter("familyName"));
 		user.setFirstName(request.getParameter("firstName"));
 		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
 		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
 		if(!request.getParameter("age").isEmpty()) {
 			if(StringUtils.isNumeric(request.getParameter("age"))) {
-				if(Integer.parseInt(request.getParameter("age")) > MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
+				if(Integer.parseInt(request.getParameter("age")) >= MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
 					user.setAge(Integer.parseInt(request.getParameter("age")));
 				else
 					user.setAge(-1);
@@ -228,7 +253,7 @@ public class UserController extends HttpServlet {
 		user.setAuthorityId(Integer.parseInt(request.getParameter("authorityId")));
 		if(!request.getParameter("age").isEmpty()) {
 			if(StringUtils.isNumeric(request.getParameter("age"))) {
-				if(Integer.parseInt(request.getParameter("age")) > MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
+				if(Integer.parseInt(request.getParameter("age")) >= MIN_AGE && Integer.parseInt(request.getParameter("age")) < MAX_AGE)
 					user.setAge(Integer.parseInt(request.getParameter("age")));
 				else
 					user.setAge(-1);
@@ -272,6 +297,11 @@ public class UserController extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	public void goToAddUpdatePage(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
+		while(listAuthority == null && listGender == null) {
+			listAuthority = baseDAO.getListAuthority();
+			listGender = baseDAO.getListGender();
+		}
+		
 		request.setAttribute("listAuthority", listAuthority);
 		request.setAttribute("listGender", listGender);
 		request.setAttribute("action", action);

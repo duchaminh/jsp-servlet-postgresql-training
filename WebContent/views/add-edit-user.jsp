@@ -14,11 +14,10 @@
 <link href="<c:url value="/resources/css/error.css" />" rel="stylesheet">
 </head>
 <body>
-	<%
-		if(session.getAttribute("name") != null){
-			response.sendRedirect(request.getContextPath() +"/logincontroller");
-		}
-	%>
+	<c:if test="${sessionScope.name == null }">
+		<c:out value = "${sessionScope.name }"/>
+		<c:redirect url="${request.contextPath}/logincontroller"/>
+	</c:if>
 <h1>Add User</h1>
 	<h1 style = "text-align: center; color: red"> 
 		<c:if test="${not empty isoverlap}">
@@ -64,21 +63,55 @@
 		<div class="form-group">
 		  <label for="author">Authority:</label>
 		  <select class="form-control" name = "authorityId">
+		  	<c:choose>
+			  <c:when test="${action eq 'EDIT' }">
+			   <option selected="selected" value = '<c:out value="${user.authorityId}"/>'><c:out value="${user.authorityName}"></c:out></option>
+			  </c:when>
+			  <c:when test="${action eq 'ADD'}">
+			    <option value = '-1' selected="selected">None</option>
+			  </c:when>
+			</c:choose>
 			<c:forEach items="${listAuthority}" var = "author" >
-				<option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
+				<c:choose>
+					<c:when test="${action eq 'EDIT' }">
+					   <c:if test = "${author.authorityId != user.authorityId }">
+					   		<option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
+					   </c:if>
+					</c:when>
+					<c:when test="${action eq 'ADD'}">
+					    <option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
+					</c:when>
+				</c:choose>
 			</c:forEach>
 		  </select>
 		</div>
 		<div class="form-group">
 		  <label for="gender">Gender:</label>
 		  <select class="form-control" name = "genderId">
+		  	<c:choose>
+			  <c:when test="${action eq 'EDIT' }">
+			   <option selected="selected" value = '<c:out value="${user.genderId}"/>'><c:out value="${user.genderName}"></c:out></option>
+			  </c:when>
+			  <c:when test="${action eq 'ADD'}">
+			    <option value = '-1' selected="selected">None</option>
+			  </c:when>
+			</c:choose>
 			<c:forEach items="${listGender}" var = "gender" >
-				<option value = '<c:out value="${gender.genderId}"/>'><c:out value="${gender.genderName}"></c:out></option>
+				<c:choose>
+				  <c:when test="${action eq 'EDIT' }">
+				   <c:if test = "${gender.genderId != user.genderId }">
+				   		<option value = '<c:out value="${gender.genderId}"/>'><c:out value="${gender.genderName}"></c:out></option>
+				   </c:if>
+				  </c:when>
+				  <c:when test="${action eq 'ADD'}">
+				    <option value = '<c:out value="${gender.genderId}"/>'><c:out value="${gender.genderName}"></c:out></option>
+				  </c:when>
+				</c:choose>
 			</c:forEach>
 		  </select>
 		</div>
 		<div class="checkbox">
-		  <label><input type="checkbox" value = "${user.admin}" name ="admin">Admin</label>
+		 	<label><input type="checkbox" value = "${user.admin }" name ="admin" id ="admin">Admin</label>
 		</div>
 		<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">Back</button>
 		<button class = "btn btn-primary" type ="submit">Save</button>

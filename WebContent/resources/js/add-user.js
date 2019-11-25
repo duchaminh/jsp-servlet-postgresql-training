@@ -6,7 +6,7 @@ $("#adduser").validate({
             password:"required",
             age:{
             	number:true,
-            	min:18,
+            	min:0,
             	max:60
             }
         },
@@ -32,3 +32,6 @@ $("#adduser").validate({
             $(element).css('background', '#ffffff');
         }
     });
+var admin = $("#admin").val();
+if(admin == 1)
+	$('#admin').prop('checked', true);

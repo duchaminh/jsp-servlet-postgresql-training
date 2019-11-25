@@ -16,10 +16,7 @@ private static final String URL = "jdbc:postgresql://localhost/training";
 	
 	private static Connection connection = null;
 	
-	public static Connection openConnection() {
-		if (connection != null)
-            return connection;
-        else {
+	public static Connection openConnection() throws SQLException {
             try {
                 Class.forName(DRIVER);
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -30,5 +27,4 @@ private static final String URL = "jdbc:postgresql://localhost/training";
             } 
             return connection;
         }
-	}
 }

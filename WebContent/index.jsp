@@ -21,11 +21,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%
-		if(session.getAttribute("name") != null){
-			response.sendRedirect(request.getContextPath() +"/logincontroller");
-		}
-	%>
+	<c:if test="${sessionScope.name != null }">
+		<c:out value = "${sessionScope.name }"/>
+		<c:redirect url="${request.contextPath}/logincontroller"/>
+	</c:if>
 	<div style="margin:auto; text-align:center;">
 		<h1>ログイン</h1>
 		<h1 style = "text-align: center; color: red"> 

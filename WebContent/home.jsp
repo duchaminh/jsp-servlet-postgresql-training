@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,13 +17,14 @@
 		}
 	%>
 	<h1>一覧</h1>
+	<a href = "${pageContext.request.contextPath}/UserController?action=LOGOUT">Logout</a>
 	<c:if test="${not empty delete_msg}">
 	    <script>
 	         alert("Delete success");
 	    </script>
 	</c:if>
 	<div>
-		<form class="form-inline" action="${pageContext.request.contextPath}/UserController?tion=SEARCH" method = "GET">
+		<form class="form-inline" action="${pageContext.request.contextPath}/UserController?action=SEARCH" method = "GET">
 		    <label for="gender">Family Name:</label>
 		    <input type="text" class="form-control" placeholder="Enter family name" name="familyName">
 		    <label for="pwd">First Name:</label>
@@ -40,6 +40,7 @@
 			<input type="hidden" name="action" value="SEARCH" />
 		    <button type="submit" class="btn btn-primary">Search</button>
   		</form>
+  		<button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/UserController?action=AGGREGATE'"> Tong hop </button>
 	</div>
 	
 	<div>
@@ -58,7 +59,12 @@
 				<tr>
 					<td>${i}</td>
 					<td>${user.userId}</td>
-					<td>${user.firstName} ${user.familyName}</td>
+					<td>
+						<c:if test="${user.admin ==1 }">
+							<c:out value = "*"/>
+						</c:if>
+						${user.firstName} ${user.familyName}
+					</td>
 					<td>${user.genderName}</td>
 					<td>${user.age}</td>
 					<td>${user.authorityName}</td>

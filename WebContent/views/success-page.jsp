@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Complete page</title>
 </head>
 <body>
 	<h1 style = "text-align: center; color: red"> 

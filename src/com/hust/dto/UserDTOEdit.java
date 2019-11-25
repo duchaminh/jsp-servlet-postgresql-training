@@ -1,34 +1,35 @@
 package com.hust.dto;
 
-public class UserDTO {
+public class UserDTOEdit {
 	private String userId;
 	
 	private String familyName;
 	
 	private String firstName;
 	
+	private String password;
+	
+	private int genderId;
+	
 	private String genderName;
 	
 	private int age;
 	
+	private int authorityId;
+	
 	private String authorityName;
 	
 	private int admin;
-
-	public int getAdmin() {
-		return admin;
+	
+	public String getPassword() {
+		return password;
 	}
 
-	public void setAdmin(int admin) {
-		this.admin = admin;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "UserDTO [userId=" + userId + ", familyName=" + familyName + ", firstName=" + firstName + ", genderName="
-				+ genderName + ", age=" + age + ", authorityName=" + authorityName + "]";
-	}
-
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -53,6 +54,14 @@ public class UserDTO {
 		this.firstName = firstName;
 	}
 
+	public int getGenderId() {
+		return genderId;
+	}
+
+	public void setGenderId(int genderId) {
+		this.genderId = genderId;
+	}
+
 	public String getGenderName() {
 		return genderName;
 	}
@@ -69,6 +78,14 @@ public class UserDTO {
 		this.age = age;
 	}
 
+	public int getAuthorityId() {
+		return authorityId;
+	}
+
+	public void setAuthorityId(int authorityId) {
+		this.authorityId = authorityId;
+	}
+
 	public String getAuthorityName() {
 		return authorityName;
 	}
@@ -76,4 +93,14 @@ public class UserDTO {
 	public void setAuthorityName(String authorityName) {
 		this.authorityName = authorityName;
 	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
+	
 }

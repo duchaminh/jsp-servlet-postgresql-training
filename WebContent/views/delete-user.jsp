@@ -12,6 +12,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<c:if test="${sessionScope.name == null }">
+		<c:out value = "${sessionScope.name }"/>
+		<c:redirect url="${request.contextPath}/logincontroller"/>
+	</c:if>
 <h1> Delete Confirm page</h1>
 		<h1>Are You Sure You want To delete this user</h1>
 		<div class = "form-group">
