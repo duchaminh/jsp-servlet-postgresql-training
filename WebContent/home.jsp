@@ -11,11 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%
-		if(session.getAttribute("name") == null){
-			response.sendRedirect("index.html");
-		}
-	%>
+	<c:if test="${sessionScope.name == null }">
+		<c:out value = "${sessionScope.name }"/>
+		<c:redirect url="${request.contextPath}/logincontroller"/>
+	</c:if>
 	<h1>一覧</h1>
 	<a href = "${pageContext.request.contextPath}/UserController?action=LOGOUT">Logout</a>
 	<c:if test="${not empty delete_msg}">
@@ -31,9 +30,10 @@
 		    <input type="text" class="form-control" placeholder="Enter first name" name="firstName"><br>
 		    <div class="form-group">
 			  <label for="author">Authority:</label>
-			  <select class="form-control" name = "authorityId">
+			  <select class="form-control" name = "authorityName">
+			  	<option selected="selected" value = ''></option>
 				<c:forEach items="${listAuthority}" var = "author" >
-					<option value = '<c:out value="${author.authorityId}"/>'><c:out value="${author.authorityName}"></c:out></option>
+					<option value = '<c:out value="${author.authorityName}"/>'><c:out value="${author.authorityName}"></c:out></option>
 				</c:forEach>
 			  </select>
 			</div>

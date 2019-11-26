@@ -97,6 +97,49 @@ public class UserController extends HttpServlet {
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 	            dispatcher.forward(request, response);
 	        }
+		}else if(action.equals("SEARCH")) {
+			System.out.println("SEARCH");
+			List<UserDTO> results = null;
+			String familyName = request.getParameter("familyName");
+			String firstName = request.getParameter("firstName");
+			String authorityName = request.getParameter("authorityName");
+			
+			if(!familyName.isEmpty()) {
+				if(!firstName.isEmpty()) {
+					if(!authorityName.isEmpty())
+						results = userDAO.search("family_name","first_name","authority_name",familyName,firstName,authorityName);
+					else
+						results = userDAO.search("family_name","first_name",familyName,firstName);
+				}else {
+					if(!authorityName.isEmpty())
+						results = userDAO.search("family_name","authority_name",familyName,authorityName);
+					else
+						results = userDAO.search("family_name",familyName);
+				}
+			}else {
+				if(!firstName.isEmpty()) {
+					if(!authorityName.isEmpty())
+						results = userDAO.search("first_name","authority_name",firstName,authorityName);
+					else
+						results = userDAO.search("first_name",firstName);
+				}else {
+					if(!authorityName.isEmpty())
+						results = userDAO.search("authority_name",authorityName);
+					else
+						results = null;
+				}
+			}
+			
+			if(results == null || results.isEmpty()) {
+				response.sendRedirect(request.getContextPath() + "/logincontroller");
+			}else {
+				listAuthority = baseDAO.getListAuthority();
+				request.setAttribute("users", results);
+				request.setAttribute("listAuthority", listAuthority);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		else {
 			//List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();

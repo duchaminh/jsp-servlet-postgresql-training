@@ -17,7 +17,9 @@ public interface UserDAO {
 	UserDTOEdit get(String userid);
 	boolean update(User user);
 	boolean delete(String userid);
-	List<UserDTO> search(String familyname, String firstname, String authorityid);
+	List<UserDTO> search(String column, String key);
+	List<UserDTO> search(String column1, String column2, String key1, String key2);
+	List<UserDTO> search(String column1, String column2, String column3,String key1, String key2, String key3 );
 	List<AggregateByAuthority> listAggregateByAuthority();
 	void clusteringUserDtoByAuthorityId(List<AggregateByAuthority> list);
 	void clusteringComplete(List<AggregateByAuthority> list);
