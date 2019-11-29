@@ -15,6 +15,21 @@
 		<c:out value = "${sessionScope.name }"/>
 		<c:redirect url="${request.contextPath}/logincontroller"/>
 	</c:if>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">JSP&SERVLET</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#">Home</a></li>
+	      <li><a href="${pageContext.request.contextPath}/AggregateController">Tong Hop</a></li>
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="#"><span class="glyphicon glyphicon-user"></span><c:out value = "${sessionScope.name }"/></a></li>
+	      <li><a href="${pageContext.request.contextPath}/UserController?action=LOGOUT"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+	    </ul>
+	  </div>
+	</nav>
 	<h1>Aggregate-page</h1>
 	<table border = "1" class = "table table-striped table-bordered">
 			<tr class = "thead-dark">
@@ -32,8 +47,8 @@
 				<tr>
 					<td>${i}</td>
 					<td>${index.authorityName}</td>
-					<td>${index.countMan}</td>
-					<td>${index.countWomen}</td>
+					<td>${index.countMale}</td>
+					<td>${index.countFemale}</td>
 					<td>${index.countGenderNone}</td>
 					<td>${index.countAgeBeetweenZeroToNineTeen}</td>
 					<td>${index.countAgeMoreThanTwenty}</td>
@@ -42,7 +57,7 @@
 			<c:set var="i" value="${i+1}" />
 			</c:forEach>	
 		</table>
-		<button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/UserController?action=AGGREGATE'"> AGGREGATE </button>
+		<button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/AggregateController'"> AGGREGATE </button>
 		<button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/logincontroller'"> Back to home </button>
 </body>
 </html>

@@ -12,7 +12,9 @@ import com.hust.dto.AggregateByAuthority;
 import com.hust.dto.UserDTO;
 import com.hust.dto.UserDTOEdit;
 import com.hust.dto.UserDTOFromAuthorityId;
+import com.hust.util.ConditionForAggregate;
 import com.hust.util.DBConnectionUtil;
+import com.hust.util.ParamWithValue;
 
 import model.User;
 
@@ -325,48 +327,29 @@ public class UserDAOImpl implements UserDAO {
 	 * ｝
 	 * mst_roleテーブルから全てのauthority_idを取ってからAggregateByAuthoritｙのauthority_idに保存
 	 * */
-	@Override
-	public List<AggregateByAuthority> listAggregateByAuthority() {
-		List<AggregateByAuthority> aggregateByAuthoritys = null;
-		AggregateByAuthority aggregateByAuthority = null;
-		
-		try {
-			aggregateByAuthoritys = new ArrayList<AggregateByAuthority>();
-			String sql = "SELECT authority_id, authority_name from mst_role";
-			connection = DBConnectionUtil.openConnection();
-			statement = (Statement) connection.createStatement();
-			resultSet = statement.executeQuery(sql);
-			while(resultSet.next()) {
-				aggregateByAuthority = new AggregateByAuthority();
-				
-				aggregateByAuthority.setAuthorityId(resultSet.getInt("authority_id"));
-				aggregateByAuthority.setAuthorityName(resultSet.getString("authority_name"));
-				
-				aggregateByAuthoritys.add(aggregateByAuthority);
-			}
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return aggregateByAuthoritys;
-		
-	}
-	
+	/*
+	 * @Override public List<AggregateByAuthority> listAggregateByAuthority() {
+	 * List<AggregateByAuthority> aggregateByAuthoritys = null; AggregateByAuthority
+	 * aggregateByAuthority = null;
+	 * 
+	 * try { aggregateByAuthoritys = new ArrayList<AggregateByAuthority>(); String
+	 * sql = "SELECT authority_id, authority_name from mst_role"; connection =
+	 * DBConnectionUtil.openConnection(); statement = (Statement)
+	 * connection.createStatement(); resultSet = statement.executeQuery(sql);
+	 * while(resultSet.next()) { aggregateByAuthority = new AggregateByAuthority();
+	 * 
+	 * aggregateByAuthority.setAuthorityId(resultSet.getInt("authority_id"));
+	 * aggregateByAuthority.setAuthorityName(resultSet.getString("authority_name"));
+	 * 
+	 * aggregateByAuthoritys.add(aggregateByAuthority); }
+	 * 
+	 * }catch(Exception e) { e.printStackTrace(); }finally { if(connection != null)
+	 * { try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+	 * } if(statement != null) { try { statement.close(); } catch (SQLException e) {
+	 * e.printStackTrace(); } } } return aggregateByAuthoritys;
+	 * 
+	 * }
+	 */
 	/**
 	 * 集計機能は役職に関係するデータを取ってからこのclassを設計しました。
 	 * AggregateByAuthoritｙ｛
@@ -377,50 +360,32 @@ public class UserDAOImpl implements UserDAO {
 	 * mst_userテーブルから取ったauthority_idを基づいて全てのuserをAggregateByAuthoritｙのUserDTOFromAuthorityIdに保存する。
 	 */
 	
-	@Override
-	public void clusteringUserDtoByAuthorityId(List<AggregateByAuthority> list) {
-		List<UserDTOFromAuthorityId> listUserDTOFromAuthorityId = null;
-		UserDTOFromAuthorityId userDTOFromAuthorityId = null;
-		
-		for (AggregateByAuthority i : list) {
-			try {
-				listUserDTOFromAuthorityId = new ArrayList<UserDTOFromAuthorityId>();
-				String sql = "SELECT user_id, gender_id, age from mst_user where authority_id = ?";
-				connection = DBConnectionUtil.openConnection();
-				preparedStatement = connection.prepareStatement(sql);
-				preparedStatement.setInt(1, i.getAuthorityId());
-				resultSet = preparedStatement.executeQuery();
-				while(resultSet.next()) {
-					userDTOFromAuthorityId = new UserDTOFromAuthorityId();
-					
-					userDTOFromAuthorityId.setUserId(resultSet.getString("user_id"));
-					userDTOFromAuthorityId.setGenderId(resultSet.getInt("gender_id"));
-					userDTOFromAuthorityId.setAge(resultSet.getInt("age"));
-					
-					listUserDTOFromAuthorityId.add(userDTOFromAuthorityId);
-				}
-				i.setListUserDTOFromAuthorityId(listUserDTOFromAuthorityId);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				if(connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				if(preparedStatement != null) {
-					try {
-						preparedStatement.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-	
+	/*
+	 * @Override public void
+	 * clusteringUserDtoByAuthorityId(List<AggregateByAuthority> list) {
+	 * List<UserDTOFromAuthorityId> listUserDTOFromAuthorityId = null;
+	 * UserDTOFromAuthorityId userDTOFromAuthorityId = null;
+	 * 
+	 * for (AggregateByAuthority i : list) { try { listUserDTOFromAuthorityId = new
+	 * ArrayList<UserDTOFromAuthorityId>(); String sql =
+	 * "SELECT user_id, gender_id, age from mst_user where authority_id = ?";
+	 * connection = DBConnectionUtil.openConnection(); preparedStatement =
+	 * connection.prepareStatement(sql); preparedStatement.setInt(1,
+	 * i.getAuthorityId()); resultSet = preparedStatement.executeQuery();
+	 * while(resultSet.next()) { userDTOFromAuthorityId = new
+	 * UserDTOFromAuthorityId();
+	 * 
+	 * userDTOFromAuthorityId.setUserId(resultSet.getString("user_id"));
+	 * userDTOFromAuthorityId.setGenderId(resultSet.getInt("gender_id"));
+	 * userDTOFromAuthorityId.setAge(resultSet.getInt("age"));
+	 * 
+	 * listUserDTOFromAuthorityId.add(userDTOFromAuthorityId); }
+	 * i.setListUserDTOFromAuthorityId(listUserDTOFromAuthorityId); }catch(Exception
+	 * e) { e.printStackTrace(); }finally { if(connection != null) { try {
+	 * connection.close(); } catch (SQLException e) { e.printStackTrace(); } }
+	 * if(preparedStatement != null) { try { preparedStatement.close(); } catch
+	 * (SQLException e) { e.printStackTrace(); } } } } }
+	 */
 	/**
 	 * 集計機能は役職に関係するデータを取ってからこのclassを設計しました。
 	 * AggregateByAuthoritｙ｛
@@ -430,46 +395,47 @@ public class UserDAOImpl implements UserDAO {
 	 * ｝
 	 * 年齢や性を数える
 	 */
+	/*
+	 * @Override public void clusteringComplete(List<AggregateByAuthority> list) {
+	 * 
+	 * for (AggregateByAuthority i : list) { i.init();
+	 * if(!i.getListUserDTOFromAuthorityId().isEmpty()) { for(UserDTOFromAuthorityId
+	 * j : i.getListUserDTOFromAuthorityId()) { if(j.getGenderId() == IS_MAN)
+	 * i.increaseMan(); else if(j.getGenderId() == IS_WOMEN) i.increaseWoMen(); else
+	 * i.increaseGenderNone();
+	 * 
+	 * int age = j.getAge(); if(age > ZERO_YEARS_OLD && age <= NINETEEN_YEARS_OLD )
+	 * i.increaseAgeBeetweenZeroToNineTeen(); else if(age >= TWENTY_YEARS_OLD)
+	 * i.increaseAgeMoreThanTwenty(); else i.increaseAgeNone(); } } }
+	 * 
+	 * }
+	 */
+
 	@Override
-	public void clusteringComplete(List<AggregateByAuthority> list) {
-		
-		for (AggregateByAuthority i : list) {
-			i.init();
-			if(!i.getListUserDTOFromAuthorityId().isEmpty()) {
-				for(UserDTOFromAuthorityId j : i.getListUserDTOFromAuthorityId()) {
-					if(j.getGenderId() == IS_MAN)
-						i.increaseMan();
-					else if(j.getGenderId() == IS_WOMEN)
-						i.increaseWoMen();
-					else
-						i.increaseGenderNone();
-					
-					int age = j.getAge();
-					if(age > ZERO_YEARS_OLD && age <= NINETEEN_YEARS_OLD )
-						i.increaseAgeBeetweenZeroToNineTeen();
-					else if(age >= TWENTY_YEARS_OLD)
-						i.increaseAgeMoreThanTwenty();
-					else
-						i.increaseAgeNone();
+	public List<UserDTO> search(List<ParamWithValue> listParam) {
+		List<UserDTO> results = null;
+		UserDTO user = null;
+		int questionMark = 1;
+		try {
+			results = new ArrayList<UserDTO>();
+			
+			// create sql with multi param
+			String sql = "SELECT user_id, admin, first_name, family_name, age, authority_name, gender_name FROM mst_user, mst_role,mst_gender where mst_user.gender_id =mst_gender.gender_id and mst_user.authority_id = mst_role.authority_id ";
+			for(ParamWithValue column : listParam) {
+				if(!column.getValue().isEmpty()) {
+					sql = sql.concat(" and " + column.getColumn() + " LIKE ?");
 				}
 			}
-		}
-		
-	}
-	
-	//search with a param
-	@Override
-	public List<UserDTO> search(String column, String key) {
-		List<UserDTO> results = null;
-		UserDTO user = null;
-		try {
-			results = new ArrayList<UserDTO>();
-			String sql = "SELECT user_id, admin, first_name, family_name, age, authority_name, gender_name FROM mst_user, mst_role,mst_gender where "+ column+ " LIKE ? and mst_user.gender_id =mst_gender.gender_id and mst_user.authority_id = mst_role.authority_id";
-			System.out.println(sql);
 			connection = DBConnectionUtil.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, key);
-			//preparedStatement.setString(2, key);
+			
+			//prepared statement
+			for(ParamWithValue column : listParam) {
+				if(!column.getValue().isEmpty()) {
+					preparedStatement.setString(questionMark, column.getValue());
+					questionMark+=1;
+				}
+			}
 			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				user = new UserDTO();
@@ -486,78 +452,22 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
-		}
-		
-		return results;
-	}
-	
-	//search with 3 param
-	@Override
-	public List<UserDTO> search(String column1, String column2, String column3, String key1, String key2, String key3) {
-		List<UserDTO> results = null;
-		UserDTO user = null;
-		try {
-			results = new ArrayList<UserDTO>();
-			String sql = "SELECT user_id, admin, first_name, family_name, age, authority_name, gender_name FROM mst_user, mst_role,mst_gender where "+ column1+ " LIKE ? and " +column2+" LIKE ? and "+column3+" LIKE ? and mst_user.gender_id =mst_gender.gender_id and mst_user.authority_id = mst_role.authority_id";
-			System.out.println(sql);
-			connection = DBConnectionUtil.openConnection();
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, key1);
-			preparedStatement.setString(2, key2);
-			preparedStatement.setString(3, key3);
-			//preparedStatement.setString(2, key);
-			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-				user = new UserDTO();
-				
-				user.setUserId(resultSet.getString("user_id"));
-				user.setAdmin(resultSet.getInt("admin"));
-				user.setFamilyName(resultSet.getString("family_name"));
-				user.setFirstName(resultSet.getString("first_name"));
-				user.setAge(resultSet.getInt("age"));
-				user.setAuthorityName(resultSet.getString("authority_name"));
-				user.setGenderName(resultSet.getString("gender_name"));
-			
-				results.add(user);
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return results;
-	}
-	
-	//search with 2 param
-	@Override
-	public List<UserDTO> search(String column1, String column2, String key1, String key2) {
-		List<UserDTO> results = null;
-		UserDTO user = null;
-		try {
-			results = new ArrayList<UserDTO>();
-			String sql = "SELECT user_id, admin, first_name, family_name, age, authority_name, gender_name FROM mst_user, mst_role,mst_gender where "+ column1+ " LIKE ? and " +column2+" LIKE ? and mst_user.gender_id =mst_gender.gender_id and mst_user.authority_id = mst_role.authority_id";
-			System.out.println(sql);
-			connection = DBConnectionUtil.openConnection();
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, key1);
-			preparedStatement.setString(2, key2);
-			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
-				user = new UserDTO();
-				
-				user.setUserId(resultSet.getString("user_id"));
-				user.setAdmin(resultSet.getInt("admin"));
-				user.setFamilyName(resultSet.getString("family_name"));
-				user.setFirstName(resultSet.getString("first_name"));
-				user.setAge(resultSet.getInt("age"));
-				user.setAuthorityName(resultSet.getString("authority_name"));
-				user.setGenderName(resultSet.getString("gender_name"));
-			
-				results.add(user);
+			if(preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
+		}	
 		return results;
 	}
 }

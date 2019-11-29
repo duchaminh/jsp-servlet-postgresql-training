@@ -1,21 +1,12 @@
 package com.hust.dto;
 
-import java.util.List;
-
 public class AggregateByAuthority {
-	private int authorityId;
 	
 	private String authorityName;
 	
-	public String getAuthorityName() {
-		return authorityName;
-	}
-
-	private List<UserDTOFromAuthorityId> listUserDTOFromAuthorityId;
+	private int countMale;
 	
-	private int countMan;
-	
-	private int countWomen;
+	private int countFemale;
 	
 	private int countGenderNone;
 	
@@ -24,37 +15,31 @@ public class AggregateByAuthority {
 	private int countAgeMoreThanTwenty;
 	
 	private int countAgeNone;
-
-	public int getAuthorityId() {
-		return authorityId;
+	
+	
+	
+	public String getAuthorityName() {
+		return authorityName;
 	}
 
-	public void setAuthorityId(int authorityId) {
-		this.authorityId = authorityId;
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
 	}
 
-	public List<UserDTOFromAuthorityId> getListUserDTOFromAuthorityId() {
-		return listUserDTOFromAuthorityId;
+	public int getCountMale() {
+		return countMale;
 	}
 
-	public void setListUserDTOFromAuthorityId(List<UserDTOFromAuthorityId> userDTOFromAuthorityId) {
-		this.listUserDTOFromAuthorityId = userDTOFromAuthorityId;
+	public void setCountMale(int countMale) {
+		this.countMale = countMale;
 	}
 
-	public int getCountMan() {
-		return countMan;
+	public int getCountFemale() {
+		return countFemale;
 	}
 
-	public void setCountMan(int countMan) {
-		this.countMan = countMan;
-	}
-
-	public int getCountWomen() {
-		return countWomen;
-	}
-
-	public void setCountWomen(int countWomen) {
-		this.countWomen = countWomen;
+	public void setCountFemale(int countFemale) {
+		this.countFemale = countFemale;
 	}
 
 	public int getCountGenderNone() {
@@ -85,48 +70,9 @@ public class AggregateByAuthority {
 		return countAgeNone;
 	}
 
-	public void setCountAgeNone(int coundAgeNone) {
-		this.countAgeNone = coundAgeNone;
+	public void setCountAgeNone(int countAgeNone) {
+		this.countAgeNone = countAgeNone;
 	}
 	
-	public void init() {
-		this.countMan = 0;
-		this.countWomen = 0;
-		this.countGenderNone = 0;
-		
-		this.countAgeBeetweenZeroToNineTeen = 0;
-		
-		this.countAgeMoreThanTwenty = 0;
-		
-		this.countAgeNone = 0;
-	}
 	
-	public void increaseMan() {
-		this.countMan++;
-	}
-	
-	public void increaseWoMen() {
-		this.countWomen++;
-	}
-	
-	public void increaseGenderNone() {
-		this.countGenderNone++;
-	}
-	
-	public void increaseAgeBeetweenZeroToNineTeen() {
-		this.countAgeBeetweenZeroToNineTeen++;
-	}
-	
-	public void increaseAgeMoreThanTwenty() {
-		this.countAgeMoreThanTwenty++;
-	}
-	
-	public void increaseAgeNone() {
-		this.countAgeNone++;
-	}
-
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
-		
-	}
 }

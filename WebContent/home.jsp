@@ -15,21 +15,39 @@
 		<c:out value = "${sessionScope.name }"/>
 		<c:redirect url="${request.contextPath}/logincontroller"/>
 	</c:if>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">JSP&SERVLET</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#">Home</a></li>
+	      <li><a href="${pageContext.request.contextPath}/AggregateController">Tong Hop</a></li>
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="#"><span class="glyphicon glyphicon-user"></span><c:out value = "${sessionScope.name }"/></a></li>
+	      <li><a href="${pageContext.request.contextPath}/UserController?action=LOGOUT"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+	    </ul>
+	  </div>
+	</nav>
 	<h1>一覧</h1>
-	<a href = "${pageContext.request.contextPath}/UserController?action=LOGOUT">Logout</a>
-	<c:if test="${not empty delete_msg}">
-	    <script>
-	         alert("Delete success");
+	<c:if test="${not empty search_not_found}"> 
+	     <script>
+	         alert("Not found. Please try again");
 	    </script>
 	</c:if>
 	<div>
 		<form class="form-inline" action="${pageContext.request.contextPath}/UserController?action=SEARCH" method = "GET">
-		    <label for="gender">Family Name:</label>
-		    <input type="text" class="form-control" placeholder="Enter family name" name="familyName">
-		    <label for="pwd">First Name:</label>
-		    <input type="text" class="form-control" placeholder="Enter first name" name="firstName"><br>
-		    <div class="form-group">
-			  <label for="author">Authority:</label>
+			<div class="col-xs-2">
+			   <label for="gender">Family Name:</label>
+			   <input type="text" class="form-control" placeholder="Enter family name" name="familyName">
+			 </div>
+			 <div class="col-xs-2">
+			    <label for="pwd">First Name:</label>
+		    	<input type="text" class="form-control" placeholder="Enter first name" name="firstName"><br>
+			  </div>
+		    <div class="col-xs-2">
+			  <label for="author">Authority:</label></br>
 			  <select class="form-control" name = "authorityName">
 			  	<option selected="selected" value = ''></option>
 				<c:forEach items="${listAuthority}" var = "author" >
@@ -37,12 +55,15 @@
 				</c:forEach>
 			  </select>
 			</div>
-			<input type="hidden" name="action" value="SEARCH" />
-		    <button type="submit" class="btn btn-primary">Search</button>
+			
+			<div>
+				</br>
+			    <input type="hidden" name="action" value="SEARCH" />
+		    	<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+			
   		</form>
-  		<button class ="btn btn-primary" onclick="window.location.href= '${pageContext.request.contextPath}/UserController?action=AGGREGATE'"> Tong hop </button>
 	</div>
-	
 	<div>
 		<table border = "1" class = "table table-striped table-bordered">
 			<tr class = "thead-dark">

@@ -2,6 +2,7 @@ package com.hust.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import com.hust.dto.AuthorityDTO;
 import com.hust.dto.GenderDTO;
 import com.hust.dto.UserDTO;
 import com.hust.dto.UserDTOEdit;
+import com.hust.util.ConditionForAggregate;
+import com.hust.util.ParamWithValue;
 import com.hust.util.UserValidator;
 import com.hust.util.UserValidatorImpl;
 import com.hust.util.validators.genericvalidator.UserException;
@@ -74,20 +77,6 @@ public class UserController extends HttpServlet {
 			System.out.println("delete");
 			String userid = request.getParameter("id");
 			deleteUser(request, response, userid);
-		}
-		else if(action.equals("AGGREGATE")) {
-			System.out.println("AGGREGATE");
-			List<AggregateByAuthority> aggregateByAuthoritys = null;
-			
-			while(aggregateByAuthoritys == null) {
-				aggregateByAuthoritys = userDAO.listAggregateByAuthority();
-				userDAO.clusteringUserDtoByAuthorityId(aggregateByAuthoritys);
-				userDAO.clusteringComplete(aggregateByAuthoritys);
-			}
-			
-			request.setAttribute("aggregate", aggregateByAuthoritys);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("views/aggregate-page.jsp");
-			dispatcher.forward(request, response);
 		}else if(action.equals("LOGOUT")) {
 			System.out.println("logout");
 			HttpSession session = request.getSession(false);
@@ -98,48 +87,34 @@ public class UserController extends HttpServlet {
 	            dispatcher.forward(request, response);
 	        }
 		}else if(action.equals("SEARCH")) {
-			System.out.println("SEARCH");
-			List<UserDTO> results = null;
-			String familyName = request.getParameter("familyName");
-			String firstName = request.getParameter("firstName");
-			String authorityName = request.getParameter("authorityName");
+			  System.out.println("SEARCH"); 
+			  List<UserDTO> results = null; 
+			  List<ParamWithValue> listColumn = new ArrayList<ParamWithValue>();
+			  String familyName = request.getParameter("familyName"); 
+			  String firstName =request.getParameter("firstName"); 
+			  String authorityName = request.getParameter("authorityName");
+			  
+			  listColumn.add(new ParamWithValue("family_name", familyName));
+			  listColumn.add(new ParamWithValue("first_name", firstName));
+			  listColumn.add(new ParamWithValue("authority_name", authorityName));
+			  
+			  results = userDAO.search(listColumn);
+			  
+			  if(results == null || results.isEmpty()) {
+				  request.setAttribute("users",userDAO.get()); 
+				  request.setAttribute("listAuthority",baseDAO.getListAuthority());
+				  request.setAttribute("search_not_found", "Not found");
+				  RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+				  dispatcher.forward(request, response); 
+			  }else {
+				  listAuthority = baseDAO.getListAuthority(); 
+				  request.setAttribute("users",results); 
+				  request.setAttribute("listAuthority", listAuthority);
+			  
+				  RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+				  dispatcher.forward(request, response); 
+			  }
 			
-			if(!familyName.isEmpty()) {
-				if(!firstName.isEmpty()) {
-					if(!authorityName.isEmpty())
-						results = userDAO.search("family_name","first_name","authority_name",familyName,firstName,authorityName);
-					else
-						results = userDAO.search("family_name","first_name",familyName,firstName);
-				}else {
-					if(!authorityName.isEmpty())
-						results = userDAO.search("family_name","authority_name",familyName,authorityName);
-					else
-						results = userDAO.search("family_name",familyName);
-				}
-			}else {
-				if(!firstName.isEmpty()) {
-					if(!authorityName.isEmpty())
-						results = userDAO.search("first_name","authority_name",firstName,authorityName);
-					else
-						results = userDAO.search("first_name",firstName);
-				}else {
-					if(!authorityName.isEmpty())
-						results = userDAO.search("authority_name",authorityName);
-					else
-						results = null;
-				}
-			}
-			
-			if(results == null || results.isEmpty()) {
-				response.sendRedirect(request.getContextPath() + "/logincontroller");
-			}else {
-				listAuthority = baseDAO.getListAuthority();
-				request.setAttribute("users", results);
-				request.setAttribute("listAuthority", listAuthority);
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-				dispatcher.forward(request, response);
-			}
 		}
 		else {
 			//List<AuthorityDTO> listAuthority = baseDAO.getListAuthority();
