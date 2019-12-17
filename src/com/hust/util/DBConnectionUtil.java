@@ -1,12 +1,11 @@
 package com.hust.util;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import java.sql.Connection;
-
 public class DBConnectionUtil {
-private static final String URL = "jdbc:postgresql://localhost/training";
+	private static final String URL = "jdbc:postgresql://localhost/training";
 	
 	private static final String DRIVER = "org.postgresql.Driver";
 	

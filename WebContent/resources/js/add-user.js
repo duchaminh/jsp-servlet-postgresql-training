@@ -1,9 +1,21 @@
-$("#adduser").validate({
+/*$("#adduser").validate({
         rules: {
-            firstName: "required",
-            familyName: "required",
-            userId:"required",
-            password:"required",
+            firstName: {
+            	required: true,
+            	maxlength:10
+            },
+            familyName: {
+            	required: true,
+            	maxlength:10
+            },
+            userId:{
+            	required: true,
+            	maxlength:8
+            },
+            password:{
+            	required: true,
+            	maxlength:8
+            },
             age:{
             	number:true,
             	min:0,
@@ -11,10 +23,22 @@ $("#adduser").validate({
             }
         },
         messages: {
-            firstName: "Please enter your firstname",
-            familyName: "Please enter famaly name",
-            userId: "Please enter your user id",
-            password: "please enter your password",
+            firstName: {
+            	required: " 名が入力されていません。",
+            	maxlength: "maxLength is 10 characters"
+            },
+            familyName: {
+            	required: "姓が入力されていません。",
+            	maxlength: "maxLength is 10 characters"
+            },
+            userId: {
+            	required: "ユーザーIDが入力されていません。",
+            	maxlength: "maxLength is 8 characters"
+            },
+            password: {
+            	required: "パスワードが入力されていません。",
+            	maxlength: "maxLength is 8 characters"
+            },
             age: "please enter a valid age"
         },
         submitHandler: function (form) {
@@ -34,4 +58,4 @@ $("#adduser").validate({
     });
 var admin = $("#admin").val();
 if(admin == 1)
-	$('#admin').prop('checked', true);
+	$('#admin').prop('checked', true);*/

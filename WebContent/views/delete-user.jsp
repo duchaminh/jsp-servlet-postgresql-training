@@ -16,6 +16,7 @@
 		<c:out value = "${sessionScope.name }"/>
 		<c:redirect url="${request.contextPath}/logincontroller"/>
 	</c:if>
+	
 <h1> Delete Confirm page</h1>
 		<h1>Are You Sure You want To delete this user</h1>
 		<div class = "form-group">

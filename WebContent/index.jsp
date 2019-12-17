@@ -2,51 +2,101 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>ログイン</title>
-	<style>
-		#login_form {
-			width: 300px;
-			padding:20px;
-			margin-top:10px;
-			margin-right: auto;
-			margin-bottom: 10px;
-			margin-left: auto;
-		}
-	</style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<title>Login </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="resources/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="resources/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/css/util.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/main.css">
+<!--===============================================================================================-->
 </head>
 <body>
 	<c:if test="${sessionScope.name != null }">
 		<c:out value = "${sessionScope.name }"/>
 		<c:redirect url="${request.contextPath}/logincontroller"/>
 	</c:if>
-	<div style="margin:auto; text-align:center;">
-		<h1>ログイン</h1>
-		<h1 style = "text-align: center; color: red"> 
-		<c:if test="${not empty msg}">
-   			<c:out value="${msg}"/>
-		</c:if> 
-		</h1>
-		<div id="login_form">
-			<form action="logincontroller" method="POST">
-				<table style="margin:auto; text-align:center;">
-					<tr style="width:300px;">
-						<td style="text-align:right; width:100px;">ユーザID：</td>
-						<td><input type="text" name="userID" maxlength="8"></td>
-					</tr>
-					<tr style="width:300px;">
-						<td style="text-align:right; width:100px;">パスワード：</td>
-						<td><input type="password" name="password" maxlength="8"></td>
-					</tr>
-				</table>
-				<input type="submit" value="ログイン" class = "btn btn-primary">
-			</form>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="resources/images/img-01.png" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form" action="logincontroller" method="POST">
+					<span class="login100-form-title">
+						ログイン
+					</span>
+					<h4 style = "color: red"> 
+						<c:if test="${not empty msg}">
+				   			<c:out value="${msg}"/>
+						</c:if> 
+					</h4>
+					<div class="wrap-input100 validate-input" data-validate = "ユーザーIDが入力されていません。">
+						<input class="input100" type="text" name="userID" placeholder="ユーザーID">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "パスワードが入力されていません。">
+						<input class="input100" type="password" name="password" placeholder="パスワード">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn btn-primary">
+							ログイン
+						</button>
+					</div>
+					
+					<div class="text-center p-t-136">
+						<a class="txt2" href="#">
+							Create your Account
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
+	
+	
+
+	
+<!--===============================================================================================-->	
+	<script src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/vendor/bootstrap/js/popper.js"></script>
+	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="resources/js/main.js"></script>
+
 </body>
 </html>

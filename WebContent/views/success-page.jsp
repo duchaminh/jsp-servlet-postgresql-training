@@ -8,11 +8,13 @@
 <title>Complete page</title>
 </head>
 <body>
-	<h1 style = "text-align: center; color: red"> 
+	<h1 style = "text-align: center; color: blue"> 
 		<c:if test="${not empty success_msg}">
-   			<c:out value="${success_msg}"/>
+   			<c:out value="${success_msg}"/><br>
+   			<c:out value="${success_msg}しました"/>
 		</c:if> 
 	</h1>
-	<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">Back to home</button>
+	
+	<button class ="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/logincontroller'">一覧へ戻る</button>
 </body>
 </html>

@@ -94,19 +94,23 @@ public class UserController extends HttpServlet {
 			  String firstName =request.getParameter("firstName"); 
 			  String authorityName = request.getParameter("authorityName");
 			  
-			  listColumn.add(new ParamWithValue("family_name", familyName));
-			  listColumn.add(new ParamWithValue("first_name", firstName));
-			  listColumn.add(new ParamWithValue("authority_name", authorityName));
-			  
-			  results = userDAO.search(listColumn);
-			  
-			  if(results == null || results.isEmpty()) {
+			  if(familyName.isEmpty() && firstName.isEmpty() && authorityName.isEmpty()) {
+				  System.out.println("not found");
 				  request.setAttribute("users",userDAO.get()); 
 				  request.setAttribute("listAuthority",baseDAO.getListAuthority());
-				  request.setAttribute("search_not_found", "Not found");
+				  request.setAttribute("not_found", "検索できるように入力してください");
 				  RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
 				  dispatcher.forward(request, response); 
 			  }else {
+				  
+				  listColumn.add(new ParamWithValue("family_name", familyName));
+				  listColumn.add(new ParamWithValue("first_name", firstName));
+				  listColumn.add(new ParamWithValue("authority_name", authorityName));
+				  
+				  results = userDAO.search(listColumn);
+				  
+				  if(results.isEmpty())
+					  request.setAttribute("not_found","見つけられない"); 
 				  listAuthority = baseDAO.getListAuthority(); 
 				  request.setAttribute("users",results); 
 				  request.setAttribute("listAuthority", listAuthority);
@@ -114,6 +118,7 @@ public class UserController extends HttpServlet {
 				  RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
 				  dispatcher.forward(request, response); 
 			  }
+			  
 			
 		}
 		else {
@@ -125,12 +130,12 @@ public class UserController extends HttpServlet {
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response,String userid) throws ServletException, IOException {
 		if(userDAO.delete(userid)) {
-			request.setAttribute("success_msg", "Delete success");
+			request.setAttribute("success_msg", "削除完了");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
 			dispatcher.forward(request, response);		
 		}else {
-			request.setAttribute("fail_msg", "Delete fail");
+			request.setAttribute("fail_msg", "削除失敗");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/delete-user.jsp");
 			dispatcher.forward(request, response);	
@@ -167,13 +172,14 @@ public class UserController extends HttpServlet {
 			try {
 				userValidator.validate(user);
 				if(userDAO.update(user)) {
-					request.setAttribute("success_msg", "Update success");
+					request.setAttribute("success_msg", "更新完了");
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
 					dispatcher.forward(request, response);
-				}else {
-					getSingleUser(request,response, userId);
-				}
+				} /*
+					 * else { request.setAttribute("update_err", "更新失敗");
+					 * getSingleUser(request,response, userId); }
+					 */
 			} catch (UserException e) {
 				e.printStackTrace();
 				request.setAttribute("update_err", e.getMessage());
@@ -195,13 +201,14 @@ public class UserController extends HttpServlet {
 				try {
 					userValidator.validate(user);
 					if(userDAO.save(user)) {
-						request.setAttribute("success_msg", "Add success");
+						request.setAttribute("success_msg", "登録完了");
 						
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/views/success-page.jsp");
 						dispatcher.forward(request, response);			
-					}else {
-						goToAddUpdatePage(request, response,"ADD");
-					}
+					} /*
+						 * else { request.setAttribute("fail_msg", "登録失敗"); goToAddUpdatePage(request,
+						 * response,"ADD"); }
+						 */
 				} catch (UserException e) {
 					e.printStackTrace();
 					request.setAttribute("add_err", e.getMessage());
@@ -221,7 +228,7 @@ public class UserController extends HttpServlet {
 		user.setUserId(userId);
 		user.setPassword(request.getParameter("password"));
 		user.setFamilyName(request.getParameter("familyName"));
-		System.out.println("青山さん");
+		
 		System.out.println(request.getParameter("familyName"));
 		user.setFirstName(request.getParameter("firstName"));
 		user.setGenderId(Integer.parseInt(request.getParameter("genderId")));
@@ -315,7 +322,7 @@ public class UserController extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	public void goToAddUpdatePage(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
-		while(listAuthority == null && listGender == null) {
+		while(listAuthority == null || listGender == null) {
 			listAuthority = baseDAO.getListAuthority();
 			listGender = baseDAO.getListGender();
 		}

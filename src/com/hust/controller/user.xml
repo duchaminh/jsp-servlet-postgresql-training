@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+<openfunxion version="4.0" language="iText">
+	<openfunxion_property classname="jp.co.nobworks.openfunxion4.core.DummyPrintProperty">
+	</openfunxion_property>
+	<openfunxion_common
+		value_count="102"
+		work_file="sample1.pdf"
+		work_command="C:\Program Files\Adobe\Acrobat 6.0\Reader\AcroRd32.exe %pdf_file"
+		print_command=""
+		external_font_file0="C:\WINNT\Fonts\CODE39.TTF"
+		external_font_name0="CODE39"
+		external_font_file1=""
+		external_font_name1="04b09"
+		external_font_file2=""
+		external_font_name2="04b09"
+		external_font_file3=""
+		external_font_name3="04b09"
+		external_font_file4=""
+		external_font_name4="04b09"
+		external_font_file5=""
+		external_font_name5="04b09"
+		external_font_file6=""
+		external_font_name6="04b09"
+		external_font_file7=""
+		external_font_name7="04b09"
+		external_font_file8=""
+		external_font_name8="04b09"
+		external_font_file9=""
+		external_font_name9="04b09"
+	>
+		<openfunxion_page size="A4" orientation="PORTRAIT" zoom="1" mouseX="6" mouseY="6" grid="false" grid_width="6" grid_height="12" not_disp_red="200" not_disp_green="200" not_disp_blue="200" not_print_red="180" not_print_green="180" not_print_blue="180"></openfunxion_page>
+	</openfunxion_common>
+	<openfunxion_blocklayout parent="_root" id="body_block" name="block_23" x1="72" y1="264" x2="300" y2="378" memo="" display_children="true" display="true" output="true">
+		<openfunxion_box parent="body_block" id="box_1" name="box_1" x1="0" y1="0" x2="120" y2="30" thickness="1.0" red="0" green="0" blue="0" color_transparent="255" fill_enable="true" fill_color_red="0" fill_color_green="0" fill_color_blue="0" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="title_1" name="text_1" x1="6" y1="24" message="帳票レイアウト" horizontal_scale="1.0" font="HeiseiKakuGo-W5" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="255" green="255" blue="255" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="C:\WINNT\Fonts\CODE39.TTF" external_font_name="CODE39">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_2" name="box_2" x1="120" y1="0" x2="174" y2="30" thickness="1.0" red="204" green="204" blue="204" color_transparent="255" fill_enable="true" fill_color_red="204" fill_color_green="204" fill_color_blue="204" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_2" name="text_2" x1="126" y1="24" message="帳票名" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_3" name="box_3" x1="174" y1="0" x2="300" y2="30" thickness="1.0" red="204" green="204" blue="204" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_3" name="text_3" x1="180" y1="24" message="ユーザーリスト" horizontal_scale="1.0" font="HeiseiKakuGo-W5" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="C:\WINNT\Fonts\CODE39.TTF" external_font_name="CODE39">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_4" name="box_44" x1="300" y1="0" x2="350" y2="30" thickness="1.0" red="204" green="204" blue="204" color_transparent="255" fill_enable="true" fill_color_red="204" fill_color_green="204" fill_color_blue="204" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="box_5" name="box_5" x1="350" y1="0" x2="400" y2="30" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="box_6" name="box_6" x1="400" y1="0" x2="450" y2="30" thickness="1.0" red="204" green="204" blue="204" color_transparent="255" fill_enable="true" fill_color_red="204" fill_color_green="204" fill_color_blue="204" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="box_7" name="box_7" x1="450" y1="0" x2="500" y2="30" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="box_8" name="box_8" x1="490" y1="0" x2="540" y2="30" thickness="1.0" red="204" green="204" blue="204" color_transparent="255" fill_enable="true" fill_color_red="204" fill_color_green="204" fill_color_blue="204" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_4" name="text_4" x1="312" y1="24" message="用紙" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_55" name="Copied text_55" x1="360" y1="24" message="汎用" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_56" name="Copied text_56" x1="402" y1="24" message="サイズ" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_58" name="Copied text_58" x1="456" y1="24" message="A4縦" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_59" name="Copied text_59" x1="492" y1="24" message="作成日" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_9" name="box_9" x1="540" y1="0" x2="595" y2="30" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_9" name="text_9" x1="546" y1="24" message="2019/7" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="14" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_10" name="box_10" x1="33" y1="39" x2="246" y2="73" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_10" name="text_10" x1="72" y1="66" message="ユーザーリスト" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="18" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_11" name="box_11" x1="264" y1="39" x2="582" y2="108" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_11" name="text_11" x1="312" y1="66" message="出力日時" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_12" name="text_12" x1="414" y1="66" message="YYYY/MM/DD　HH:MM:SS" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="text_13" name="text_13" x1="444" y1="96" message="PAGE:  (ZZ9/ZZ9)" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="box_12" name="box_12" x1="5" y1="84" x2="55" y2="117" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="box_13" name="box_13" x1="60" y1="84" x2="246" y2="117" thickness="1.0" red="255" green="255" blue="255" color_transparent="255" fill_enable="true" fill_color_red="255" fill_color_green="255" fill_color_blue="255" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="text_14" name="text_14" x1="12" y1="108" message="役職" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="18" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_box parent="body_block" id="out_box" name="out_box" x1="12" y1="132" x2="582" y2="810" thickness="1.0" red="0" green="0" blue="0" color_transparent="255" fill_enable="false" fill_color_red="0" fill_color_green="0" fill_color_blue="0" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_box parent="body_block" id="header_box" name="header_box" x1="12" y1="132" x2="582" y2="156" thickness="1.0" red="0" green="0" blue="0" color_transparent="255" fill_enable="false" fill_color_red="0" fill_color_green="0" fill_color_blue="0" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+		</openfunxion_box>
+		<openfunxion_text parent="body_block" id="header_1" name="header_1" x1="36" y1="150" message="No" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="15" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="header_2" name="header_2" x1="96" y1="150" message="ユーザー" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="15" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="header_5" name="header_5" x1="522" y1="150" message="年齢" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="15" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="header_4" name="header_4" x1="450" y1="150" message="性別" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="15" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="header_3" name="header_3" x1="252" y1="150" message="氏名" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="15" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="body_block" id="authority_name" name="text_15" x1="66" y1="108" message="NNNNNNNNNNNNNNNNNNN" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="18" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="C:\WINNT\Fonts\CODE39.TTF" external_font_name="CODE39">
+		</openfunxion_text>
+	</openfunxion_blocklayout>
+	<openfunxion_blocklayout parent="_root" id="data_block" name="block_24" x1="72" y1="498" x2="300" y2="612" memo="" display_children="true" display="true" output="true">
+		<openfunxion_line parent="data_block" id="row_line" name="row_line" x1="12" y1="192" x2="582" y2="192" thickness="1.0" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" red="0" green="0" blue="0" memo="" display="true" output="true">
+		</openfunxion_line>
+		<openfunxion_text parent="data_block" id="row_no" name="row_no" x1="36" y1="180" message="999" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="data_block" id="row_user" name="row_user" x1="96" y1="180" message="NNNNNNNN" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="data_block" id="row_name" name="row_name" x1="252" y1="180" message="NNNNNNNNNNNNNNNNNNN" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="data_block" id="row_sex" name="row_sex" x1="450" y1="180" message="NN" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+		<openfunxion_text parent="data_block" id="row_age" name="row_age" x1="522" y1="180" message="999" horizontal_scale="1.0" font="HeiseiMin-W3" font_encoding="UniJIS-UCS2-HW-H" font_size="16" background_enable="false" background_red="0" background_green="0" background_blue="0" size_outline="false" red="0" green="0" blue="0" memo="" display="true" output="true"
+		 underline="false" underline_thick="0.0" underline_ypos="0.0" underline_red="0" underline_green="0" underline_blue="0" bold="false" italic="false" outline="false" strike="false" external_font_enable="false" external_font_file="" external_font_name="">
+		</openfunxion_text>
+	</openfunxion_blocklayout>
+	<openfunxion_box parent="_root" id="reverse_row" name="reverse_row" x1="12" y1="156" x2="582" y2="192" thickness="1.0" red="0" green="0" blue="0" color_transparent="255" fill_enable="false" fill_color_red="0" fill_color_green="0" fill_color_blue="0" fill_color_transparent="255" dash_enable="false" dash_unitson="0.0" dash_unitsoff="0.0" dash_phase="0.0" memo="" display="true" output="true">
+	</openfunxion_box>
+</openfunxion>

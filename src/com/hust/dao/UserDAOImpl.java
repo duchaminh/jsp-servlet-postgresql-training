@@ -8,12 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hust.dto.AggregateByAuthority;
 import com.hust.dto.UserDTO;
 import com.hust.dto.UserDTOEdit;
-import com.hust.dto.UserDTOFromAuthorityId;
-import com.hust.util.ConditionForAggregate;
 import com.hust.util.DBConnectionUtil;
+import com.hust.util.DBConnectionUtilWithTomCat;
 import com.hust.util.ParamWithValue;
 
 import model.User;
@@ -426,7 +424,7 @@ public class UserDAOImpl implements UserDAO {
 					sql = sql.concat(" and " + column.getColumn() + " LIKE ?");
 				}
 			}
-			connection = DBConnectionUtil.openConnection();
+			connection = DBConnectionUtilWithTomCat.openConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			
 			//prepared statement
