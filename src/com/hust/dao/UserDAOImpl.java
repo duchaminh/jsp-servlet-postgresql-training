@@ -15,6 +15,7 @@ import com.hust.util.DBConnectionUtilWithTomCat;
 import com.hust.util.ParamWithValue;
 
 import model.User;
+import model.UserForAPI;
 
 public class UserDAOImpl implements UserDAO {
 	Connection connection = null;
@@ -420,7 +421,7 @@ public class UserDAOImpl implements UserDAO {
 			// create sql with multi param
 			String sql = "SELECT user_id, admin, first_name, family_name, age, authority_name, gender_name FROM mst_user, mst_role,mst_gender where mst_user.gender_id =mst_gender.gender_id and mst_user.authority_id = mst_role.authority_id ";
 			for(ParamWithValue column : listParam) {
-				if(!column.getValue().isEmpty()) {
+				if(column.getValue() != null && !column.getValue().isEmpty()) {
 					sql = sql.concat(" and " + column.getColumn() + " LIKE ?");
 				}
 			}
@@ -429,7 +430,7 @@ public class UserDAOImpl implements UserDAO {
 			
 			//prepared statement
 			for(ParamWithValue column : listParam) {
-				if(!column.getValue().isEmpty()) {
+				if(column.getValue() != null && !column.getValue().isEmpty()) {
 					preparedStatement.setString(questionMark, column.getValue());
 					questionMark+=1;
 				}
@@ -467,5 +468,41 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}	
 		return results;
+	}
+
+	@Override
+	public UserForAPI getUser(String userid) {
+		UserForAPI user = null;
+		try {
+			user = new UserForAPI();
+			String sql = "SELECT u.user_id,u.password FROM mst_user u where u.user_id LIKE ? ";
+			connection = DBConnectionUtil.openConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userid);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				user.setUsername(resultSet.getString("user_id"));
+				user.setPassword(resultSet.getString("password"));
+			}
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
+		return user;
 	}
 }

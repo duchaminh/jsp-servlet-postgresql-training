@@ -1,5 +1,8 @@
 package com.hust.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class UserDTO {
 	private String userId;
 	

@@ -10,6 +10,7 @@ import com.hust.util.ConditionForAggregate;
 import com.hust.util.ParamWithValue;
 
 import model.User;
+import model.UserForAPI;
 
 public interface UserDAO {
 	boolean check(String username, String password);
@@ -17,6 +18,7 @@ public interface UserDAO {
 	boolean save(User user);
 	boolean isOverLapUserId(String userId);
 	UserDTOEdit get(String userid);
+	UserForAPI getUser(String userid);
 	boolean update(User user);
 	boolean delete(String userid);
 	
